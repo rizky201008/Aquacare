@@ -12,13 +12,13 @@ class AuthController extends Controller
 //    function for show login page
     public function login()
     {
-        return Inertia::render('Pages/Auth/Login');
+        return Inertia::render('Auth/Login');
     }
 
 //    function for show register page
     public function register()
     {
-        return Inertia::render('Pages/Auth/Register');
+        return Inertia::render('Auth/Register');
     }
 
 //    function for logout user
