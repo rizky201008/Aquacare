@@ -20,6 +20,11 @@ class AuthController extends Controller
     {
         return Inertia::render('Auth/Register');
     }
+//    function for show register page
+    public function dashboard()
+    {
+        return Inertia::render('Dashboard');
+    }
 
 //    function for logout user
     public function logout(Request $request)

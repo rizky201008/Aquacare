@@ -18,17 +18,6 @@ const Register = () => {
     };
 
     return (
-        // <div>
-        //     <h1>Register</h1>
-        //     <form onSubmit={handleSubmit}>
-        //         <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} required />
-        //         <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
-        //         <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
-        //         <input type="password" placeholder="Confirm Password" value={passwordConfirmation} onChange={e => setPasswordConfirmation(e.target.value)} required />
-        //         <button type="submit">Register</button>
-        //     </form>
-        // </div>
-
         <>
             <meta charSet="utf-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -81,7 +70,7 @@ const Register = () => {
                                                     }
                                                     required
                                                 />
-                                                //
+                                                
                                             </div>
                                             <div className="col-sm-6">
                                                 <input
@@ -104,7 +93,7 @@ const Register = () => {
                                                 }
                                                 required
                                             />
-                                            //
+                                            
                                         </div>
                                         <div className="form-group row">
                                             <div className="col-sm-6 mb-3 mb-sm-0">
@@ -121,7 +110,7 @@ const Register = () => {
                                                     }
                                                     required
                                                 />
-                                                //
+                                                
                                             </div>
                                             <div className="col-sm-6">
                                                 <input
@@ -140,7 +129,7 @@ const Register = () => {
                                             </div>
                                         </div>
                                         <a
-                                            href="login.html"
+                                            href="dashboard"
                                             className="btn btn-primary btn-user btn-block"
                                         >
                                             Register Account
@@ -171,7 +160,7 @@ const Register = () => {
                                         </a>
                                     </div>
                                     <div className="text-center">
-                                        <a className="small" href="login.html">
+                                        <a className="small" href="dashboard">
                                             Already have an account? Login!
                                         </a>
                                     </div>
@@ -181,9 +170,6 @@ const Register = () => {
                     </div>
                 </div>
             </div>
-            {/* Bootstrap core JavaScript*/}
-            {/* Core plugin JavaScript*/}
-            {/* Custom scripts for all pages*/}
         </>
     );
 };
