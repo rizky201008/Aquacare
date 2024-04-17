@@ -30,7 +30,7 @@ const Register = () => {
             <title>SB Admin 2 - Register</title>
             {/* Custom fonts for this template*/}
             <link
-                href="vendor/fontawesome-free/css/all.min.css"
+                href="../../../../public/template/vendor/fontawesome-free/css/all.min.css"
                 rel="stylesheet"
                 type="text/css"
             />
@@ -39,7 +39,7 @@ const Register = () => {
                 rel="stylesheet"
             />
             {/* Custom styles for this template*/}
-            <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+            <link href="../../../../public/template/css/sb-admin-2.min.css" rel="stylesheet" />
             <div className="container">
                 <div className="card o-hidden border-0 shadow-lg my-5">
                     <div className="card-body p-0">
@@ -70,7 +70,7 @@ const Register = () => {
                                                     }
                                                     required
                                                 />
-                                                
+
                                             </div>
                                             <div className="col-sm-6">
                                                 <input
@@ -93,7 +93,7 @@ const Register = () => {
                                                 }
                                                 required
                                             />
-                                            
+
                                         </div>
                                         <div className="form-group row">
                                             <div className="col-sm-6 mb-3 mb-sm-0">
@@ -110,7 +110,7 @@ const Register = () => {
                                                     }
                                                     required
                                                 />
-                                                
+
                                             </div>
                                             <div className="col-sm-6">
                                                 <input

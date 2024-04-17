@@ -23,7 +23,7 @@ const Login = () => {
             <title>SB Admin 2 - Login</title>
             {/* Custom fonts for this template*/}
             <link
-                href="vendor/fontawesome-free/css/all.min.css"
+                href="../../../../public/template/css/sb-admin-2.min.css"
                 rel="stylesheet"
                 type="text/css"
             />
@@ -32,7 +32,7 @@ const Login = () => {
                 rel="stylesheet"
             />
             {/* Custom styles for this template*/}
-            <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+            <link href="../../../../public/template/css/sb-admin-2.min.css" rel="stylesheet" />
             <div className="container">
                 {/* Outer Row */}
                 <div className="row justify-content-center">
@@ -93,7 +93,7 @@ const Login = () => {
                                                         </label>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <button
                                             type="submit"
                                             className="btn btn-primary btn-user btn-block"

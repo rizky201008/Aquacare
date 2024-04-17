@@ -15,7 +15,7 @@ const Dashboard = () => {
             <title>SB Admin 2 - Dashboard</title>
             {/* Custom fonts for this template*/}
             <link
-                href="vendor/fontawesome-free/css/all.min.css"
+                href="../../../public/template/vendor/fontawesome-free/css/all.min.css"
                 rel="stylesheet"
                 type="text/css"
             />
@@ -24,7 +24,7 @@ const Dashboard = () => {
                 rel="stylesheet"
             />
             {/* Custom styles for this template*/}
-            <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+            <link href="../../../public/template/css/sb-admin-2.min.css" rel="stylesheet" />
             {/* Page Wrapper */}
             <div id="wrapper">
                 {/* Sidebar */}
