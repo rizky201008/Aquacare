@@ -7,8 +7,8 @@ use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
-    public function index(): \Inertia\Response
+    public function index()
     {
-        return Inertia::render('Dashboard.jsx');
+        return Inertia::render('Dashboard');
     }
 }
