@@ -145,7 +145,7 @@ export default function Login({ status, canResetPassword }) {
                                 className="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
                                 style={{
                                     backgroundImage:
-                                        'url("https://source.unsplash.com/K4mSJ7kc0As/600x800")',
+                                        'url("https://ottopay.id/lkapps/wp-content/uploads/2022/04/03.-Yang-Terjadi-Kalau-Nggak-Punya-Air-Bersih_216729520.jpg")',
                                 }}
                             />
                             {/* Col */}
