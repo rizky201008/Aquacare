@@ -30,7 +30,27 @@ export default function Register() {
         <GuestLayout>
             <Head title="Register" />
 
-            <form onSubmit={submit}>
+            
+
+            <>
+  {/* component */}
+  {/* Container */}
+  <div className="container mx-auto">
+    <div className="flex justify-center px-6 my-12">
+      {/* Row */}
+      <div className="w-full xl:w-3/4 lg:w-11/12 flex">
+        {/* Col */}
+        <div
+          className="w-full h-auto bg-gray-400 hidden lg:block lg:w-1/2 bg-cover rounded-l-lg"
+          style={{
+            backgroundImage:
+              'url("https://source.unsplash.com/K4mSJ7kc0As/600x800")'
+          }}
+        />
+        {/* Col */}
+        <div className="w-full lg:w-1/2 bg-white p-5 rounded-lg lg:rounded-l-none">
+          <h3 className="pt-4 text-2xl text-center">Welcome Back!</h3>
+          <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
 
@@ -112,6 +132,12 @@ export default function Register() {
                     </PrimaryButton>
                 </div>
             </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</>
+
         </GuestLayout>
     );
 }
