@@ -57,21 +57,4 @@ class AuthController extends Controller
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     }
-
-//    function for save user
-    public function registerUser(Request $request)
-    {
-        $credentials = $request->validate([
-            'name' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        $user = User::create($credentials);
-
-        Auth::login($user);
-
-        // return redirect()->intended('dashboard');
-        return Inertia::render('Dashboard');
-    }
 }
