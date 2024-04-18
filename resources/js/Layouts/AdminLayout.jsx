@@ -48,6 +48,14 @@ const AdminLayout = ({ children, header }) => {
                                     <Dropdown>
                                         <Dropdown.Trigger>
                                             <span className="inline-flex rounded-md dropdown dropdown-end me-4">
+                                            <button
+                                                    type="button"
+                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700  hover:text-gray-900 focus:outline-none transition ease-in-out duration-150 me-2"
+                                                >
+                                                    <span className="px-2">
+                                                        {auth.user.name}
+                                                    </span>
+                                                </button>
                                                 <button
                                                     type="button"
                                                     className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 "
@@ -65,14 +73,7 @@ const AdminLayout = ({ children, header }) => {
                                                         alt="user photo"
                                                     />
                                                 </button>
-                                                <button
-                                                    type="button"
-                                                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700  hover:text-gray-900 focus:outline-none transition ease-in-out duration-150"
-                                                >
-                                                    <span className="px-2">
-                                                        {auth.user.name}
-                                                    </span>
-                                                </button>
+                                                
                                             </span>
                                         </Dropdown.Trigger>
 
