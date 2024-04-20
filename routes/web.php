@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth','role:,true'])->group(function () {
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('dashboard',[DashboardController::class,'count'])->name('user.count');
+    Route::get('user',[DashboardController::class,'userlist'])->name('user.list');
 });
 
 Route::middleware('auth')->group(function () {
