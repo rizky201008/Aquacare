@@ -24,5 +24,13 @@ class DashboardController extends Controller
     {
         return Inertia::render('User', ['users' => User::get()]);
     }
+    public function report()
+    {
+        return Inertia::render('Report');
+    }
+    public function feedback()
+    {
+        return Inertia::render('Feedback');
+    }
     
 }
