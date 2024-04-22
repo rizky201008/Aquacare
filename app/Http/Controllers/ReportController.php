@@ -10,14 +10,16 @@ class ReportController extends Controller
 {
     public function reportList()
     {
-        return Inertia::render('Report',[
-            'report' => Report::latest()->get()
+
+        return Inertia::render('Report', [
+            'reports' => Report::latest()->get()
         ]);
     }
 
-    public function feedbackList() {
-        return Inertia::render('Feedback',[
-            'feedback' => Feedback::latest()->get()
+    public function feedbackList()
+    {
+        return Inertia::render('Feedback', [
+            'feedbacks' => Feedback::latest()->get()
         ]);
     }
 }
