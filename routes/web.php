@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,11 +17,11 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth','role:,true'])->group(function () {
-    Route::get('/dashboard',[DashboardController::class,'index'])->name('index.dashboard');
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
     // Route::get('/dashboard',[UserController::class,'count'])->name('user.count');
     Route::get('user',[DashboardController::class,'userlist'])->name('user.list');
-    Route::get('report',[DashboardController::class,'report'])->name('report');
-    Route::get('feedback',[DashboardController::class,'feedback'])->name('feedback');
+    Route::get('report',[ReportController::class, 'reportList'])->name('report');
+    Route::get('feedback',[ReportController::class,'feedbackList'])->name('feedback');
 });
 
 Route::middleware('auth')->group(function () {
