@@ -17,12 +17,16 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth','role:,true'])->group(function () {
-    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
-    // Route::get('/dashboard',[UserController::class,'count'])->name('count');
-    Route::get('user',[DashboardController::class,'userlist'])->name('userllist');
-    Route::get('report',[ReportController::class, 'reportList'])->name('report');
-    Route::get('feedback',[ReportController::class,'feedbackList'])->name('feedback');
+Route::middleware(['auth', 'role:admin,petugas,user'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard',[UserController::class,'count'])->name('user.count');
+    Route::get('user', [DashboardController::class, 'userlist'])->name('user.list');
+    Route::get('report', [ReportController::class, 'reportList'])->name('report');
+    Route::post('report', [ReportController::class, 'reportPost'])->name('report.post');
+});
+
+Route::middleware(['auth', 'role:petugas'])->group(function () {
+    Route::get('feedback', [ReportController::class, 'feedbackList'])->name('feedback');
 });
 
 Route::middleware('auth')->group(function () {
@@ -31,4 +35,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
