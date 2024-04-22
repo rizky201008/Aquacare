@@ -10,13 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::create('feedback', function (Blueprint $table) {
             $table->id();
-            $table->string('rasa');
-            $table->string('suhu');
-            $table->string('kekentalan');
-            $table->text('detail');
-            $table->enum('status', ['pending', 'approved', 'rejected']);
+            $table->text('message');
             $table->foreignIdFor(\App\Models\User::class);
             $table->timestamps();
         });
@@ -27,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('feedback');
     }
 };
