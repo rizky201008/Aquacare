@@ -13,8 +13,8 @@ return new class extends Migration {
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
             $table->text('message');
-            $table->foreignIdFor(\App\Models\User::class);
-            $table->foreignIdFor(\App\Models\Report::class);
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->foreignIdFor(\App\Models\Report::class)->constrained();
             $table->timestamps();
         });
     }
