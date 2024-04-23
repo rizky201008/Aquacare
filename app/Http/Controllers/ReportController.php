@@ -32,6 +32,12 @@ class ReportController extends Controller
         return redirect()->back()->with('message', 'Laporan berhasil dikirim');
     }
 
+    public function updateReportPut() {
+        $data = request()->all();
+        $this->updateReport($data);
+        return redirect()->back()->with('message', 'Laporan berhasil diupdate');
+    }
+
     public function feedbackList()
     {
         return Inertia::render('Feedback', [
@@ -43,6 +49,22 @@ class ReportController extends Controller
     {
         try {
             Report::create([
+                'rasa' => $data['rasa'],
+                'suhu' => $data['suhu'],
+                'kekentalan' => $data['kekentalan'],
+                'detail' => $data['detail'],
+                'status' => $data['status'] ?? 'pending',
+                'user_id' => $data['user_id']
+            ]);
+        } catch (\Exception $e) {
+            throw new $e->getMessage();
+        }
+    }
+
+    private function updateReport($data)
+    {
+        try {
+            Report::find($data['id'])->update([
                 'rasa' => $data['rasa'],
                 'suhu' => $data['suhu'],
                 'kekentalan' => $data['kekentalan'],
