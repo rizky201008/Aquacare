@@ -5,14 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Feedback;
 use App\Models\Report;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ReportController extends Controller
 {
     public function reportList()
     {
+        $user = Auth::user();
+        if ($user->roles->name === 'admin') {
+            $reports = Report::latest()->get();
+        } else {
+            $reports = $user->reports()->get();
+        }
         return Inertia::render('Report', [
-            'reports' => Report::latest()->get()
+            'reports' => $reports
         ]);
     }
 
@@ -32,7 +39,8 @@ class ReportController extends Controller
         return redirect()->back()->with('message', 'Laporan berhasil dikirim');
     }
 
-    public function updateReportPut() {
+    public function updateReportPut()
+    {
         $data = request()->all();
         $this->updateReport($data);
         return redirect()->back()->with('message', 'Laporan berhasil diupdate');
@@ -45,7 +53,6 @@ class ReportController extends Controller
         ]);
     }
 
-    
 
     private function createReport(array $data)
     {
