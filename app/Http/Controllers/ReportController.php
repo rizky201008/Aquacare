@@ -39,9 +39,10 @@ class ReportController extends Controller
         return redirect()->back()->with('message', 'Laporan berhasil dikirim');
     }
 
-    public function updateReportPut(Request $request)
+    public function updateReportPut(Request $request,$id)
     {
         $data = $request->all();
+        $data['id'] = $id;
         $this->updateReport($data);
         return redirect()->back()->with('message', 'Laporan berhasil diupdate');
     }
@@ -74,10 +75,6 @@ class ReportController extends Controller
     {
         try {
             Report::find($data['id'])->update([
-                'rasa' => $data['rasa'],
-                'suhu' => $data['suhu'],
-                'kekentalan' => $data['kekentalan'],
-                'detail' => $data['detail'],
                 'status' => $data['status'] ?? 'pending',
                 'user_id' => $data['user_id']
             ]);
