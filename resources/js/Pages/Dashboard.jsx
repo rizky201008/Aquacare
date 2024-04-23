@@ -6,6 +6,7 @@ import "../../css/sb-admin-2.css";
 export default function Dashboard({ auth }) {
     const { userCount } = usePage().props;
     let roleContent = null;
+    
 
     switch (auth.user.roles.name) {
         case "user":
