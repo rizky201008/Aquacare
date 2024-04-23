@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->string('suhu');
             $table->string('kekentalan');
             $table->text('detail');
-            $table->enum('status', ['pending', 'approved', 'rejected']);
-            $table->foreignIdFor(\App\Models\User::class);
+            $table->enum('status', ['pending', 'approved', 'rejected', 'completed', 'onprogress']);
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->timestamps();
         });
     }
