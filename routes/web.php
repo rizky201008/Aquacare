@@ -24,6 +24,10 @@ Route::middleware(['auth', 'role:admin,petugas,user'])->group(function () {
     Route::post('report', [ReportController::class, 'reportPost'])->name('report.post');
 });
 
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::put('report', [ReportController::class, 'updateReportPut'])->name('report.put');
+});
+
 Route::middleware(['auth', 'role:petugas'])->group(function () {
     Route::get('feedback', [ReportController::class, 'feedbackList'])->name('feedback');
 });
