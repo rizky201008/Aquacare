@@ -7,6 +7,7 @@ import Popup from "reactjs-popup";
 
 export default function Report({ auth }) {
     const role = auth.user.roles.name;
+    const status = ['pending', 'approved', 'rejected', 'completed', 'onprogress']
     const { flash, errors, reports } = usePage().props;
     const [showModal, setShowModal] = useState(false);
     const { data, setData, reset, put } = useForm({
@@ -15,8 +16,10 @@ export default function Report({ auth }) {
         kekentalan: "",
         detail: "",
         user_id: "",
+        status: "",
     });
     let popup = null;
+    let action = null;
     const storeReport = (e) => {
         e.preventDefault();
         router.post("/report", data, {
@@ -159,7 +162,146 @@ export default function Report({ auth }) {
             </Popup>
         );
     }
-
+    if (role == "admin") {
+        action = (
+            <Popup
+                modal
+                trigger={
+                    <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                        Edit
+                    </button>
+                }
+            >
+                <form
+                    className="p-4 md:p-5 bg-slate-400 "
+                    onSubmit={updateReport}
+                >
+                    <details className="dropdown">
+                        <summary className="m-1 btn grid gap-4 grid-cols-2">
+                            Status
+                        </summary>
+                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 col-span-1">
+                        {status.map((report, i) => {
+                            return (
+                                    <li key={i}>
+                                        <a >{report}</a>
+                                    </li>      
+                            );
+                        })}
+                        </ul>
+                    </details>
+                    {/* <div className="grid gap-4 mb-4 grid-cols-2">
+                        <div className="col-span-2">
+                            <label
+                                htmlFor="name"
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >
+                                Rasa
+                            </label>
+                            <input
+                                type="text"
+                                // id="default-search"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                placeholder="enter ..."
+                                // required
+                                onChange={(e) =>
+                                    setData("rasa", e.target.value)
+                                }
+                                value={data.rasa}
+                            />
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.rasa}
+                            </p>
+                        </div>
+                        <div className="col-span-2">
+                            <label
+                                htmlFor="name"
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >
+                                Suhu
+                            </label>
+                            <input
+                                type="text"
+                                // id="default-search"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                placeholder="enter ..."
+                                // required
+                                onChange={(e) =>
+                                    setData("suhu", e.target.value)
+                                }
+                                value={data.suhu}
+                            />
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.suhu}
+                            </p>
+                        </div>
+                        <div className="col-span-2">
+                            <label
+                                htmlFor="name"
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >
+                                Kekentalan
+                            </label>
+                            <input
+                                type="text"
+                                // id="default-search"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                placeholder="enter ..."
+                                // required
+                                onChange={(e) =>
+                                    setData("kekentalan", e.target.value)
+                                }
+                                value={data.kekentalan}
+                            />
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.kekentalan}
+                            </p>
+                        </div>
+                        <div className="col-span-4">
+                            <label
+                                htmlFor="name"
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >
+                                Detail Air
+                            </label>
+                            <input
+                                type="text"
+                                // id="default-search"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                placeholder="enter ..."
+                                // required
+                                onChange={(e) =>
+                                    setData("detail", e.target.value)
+                                }
+                                value={data.detail}
+                            />
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.detail}
+                            </p>
+                        </div>
+                    </div> */}
+                    <button
+                        type="submit"
+                        className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        <svg
+                            className="me-1 -ms-1 w-5 h-5"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fillRule="evenodd"
+                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                clipRule="evenodd"
+                            />
+                        </svg>
+                        Update New Report
+                    </button>
+                </form>
+            </Popup>
+        );
+    }
     return (
         <AdminLayout>
             <div className="rounded-t mb-0 px-4 py-3 border-0 mt-20">
@@ -289,154 +431,7 @@ export default function Report({ auth }) {
                                                     />
                                                 </svg>
                                             </Link> */}
-                                            <Popup
-                                                modal
-                                                trigger={
-                                                    <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                                                        Edit
-                                                    </button>
-                                                }
-                                            >
-                                                <form
-                                                    className="p-4 md:p-5 bg-slate-400 "
-                                                    onSubmit={updateReport}
-                                                >
-                                                    <div className="grid gap-4 mb-4 grid-cols-2">
-                                                        <div className="col-span-2">
-                                                            <label
-                                                                htmlFor="name"
-                                                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                            >
-                                                                Rasa
-                                                            </label>
-                                                            <input
-                                                                type="text"
-                                                                // id="default-search"
-                                                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                                                placeholder="enter ..."
-                                                                // required
-                                                                onChange={(e) =>
-                                                                    setData(
-                                                                        "rasa",
-                                                                        e.target
-                                                                            .value
-                                                                    )
-                                                                }
-                                                                value={
-                                                                    data.rasa
-                                                                }
-                                                            />
-                                                            <p className="text-red-500 text-sm mt-2">
-                                                                {errors.rasa}
-                                                            </p>
-                                                        </div>
-                                                        <div className="col-span-2">
-                                                            <label
-                                                                htmlFor="name"
-                                                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                            >
-                                                                Suhu
-                                                            </label>
-                                                            <input
-                                                                type="text"
-                                                                // id="default-search"
-                                                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                                                placeholder="enter ..."
-                                                                // required
-                                                                onChange={(e) =>
-                                                                    setData(
-                                                                        "suhu",
-                                                                        e.target
-                                                                            .value
-                                                                    )
-                                                                }
-                                                                value={
-                                                                    data.suhu
-                                                                }
-                                                            />
-                                                            <p className="text-red-500 text-sm mt-2">
-                                                                {errors.suhu}
-                                                            </p>
-                                                        </div>
-                                                        <div className="col-span-2">
-                                                            <label
-                                                                htmlFor="name"
-                                                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                            >
-                                                                Kekentalan
-                                                            </label>
-                                                            <input
-                                                                type="text"
-                                                                // id="default-search"
-                                                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                                                placeholder="enter ..."
-                                                                // required
-                                                                onChange={(e) =>
-                                                                    setData(
-                                                                        "kekentalan",
-                                                                        e.target
-                                                                            .value
-                                                                    )
-                                                                }
-                                                                value={
-                                                                    data.kekentalan
-                                                                }
-                                                            />
-                                                            <p className="text-red-500 text-sm mt-2">
-                                                                {
-                                                                    errors.kekentalan
-                                                                }
-                                                            </p>
-                                                        </div>
-                                                        <div className="col-span-4">
-                                                            <label
-                                                                htmlFor="name"
-                                                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                            >
-                                                                Detail Air
-                                                            </label>
-                                                            <input
-                                                                type="text"
-                                                                // id="default-search"
-                                                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                                                placeholder="enter ..."
-                                                                // required
-                                                                onChange={(e) =>
-                                                                    setData(
-                                                                        "detail",
-                                                                        e.target
-                                                                            .value
-                                                                    )
-                                                                }
-                                                                value={
-                                                                    data.detail
-                                                                }
-                                                            />
-                                                            <p className="text-red-500 text-sm mt-2">
-                                                                {errors.detail}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <button
-                                                        type="submit"
-                                                        className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                                    >
-                                                        <svg
-                                                            className="me-1 -ms-1 w-5 h-5"
-                                                            fill="currentColor"
-                                                            viewBox="0 0 20 20"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                            <path
-                                                                fillRule="evenodd"
-                                                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                                                clipRule="evenodd"
-                                                            />
-                                                        </svg>
-                                                        Update New Report
-                                                    </button>
-                                                </form>
-                                            </Popup>
+                                            {action}
                                         </div>
                                     </td>
                                 </tr>
