@@ -75,8 +75,7 @@ class ReportController extends Controller
     {
         try {
             Report::find($data['id'])->update([
-                'status' => $data['status'] ?? 'pending',
-                'user_id' => $data['user_id']
+                'status' => $data['status'] ?? 'pending'
             ]);
         } catch (\Exception $e) {
             throw new $e->getMessage();

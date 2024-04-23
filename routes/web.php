@@ -26,7 +26,7 @@ Route::middleware(['auth', 'role:admin,petugas,user'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::put('report', [ReportController::class, 'updateReportPut'])->name('report.put');
+    Route::put('report/{id}', [ReportController::class, 'updateReportPut'])->name('report.put');
 });
 
 Route::middleware(['auth', 'role:petugas'])->group(function () {
