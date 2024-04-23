@@ -39,9 +39,9 @@ class ReportController extends Controller
         return redirect()->back()->with('message', 'Laporan berhasil dikirim');
     }
 
-    public function updateReportPut()
+    public function updateReportPut(Request $request)
     {
-        $data = request()->all();
+        $data = $request->all();
         $this->updateReport($data);
         return redirect()->back()->with('message', 'Laporan berhasil diupdate');
     }
