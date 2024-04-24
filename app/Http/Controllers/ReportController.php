@@ -39,7 +39,7 @@ class ReportController extends Controller
         return redirect()->back()->with('message', 'Laporan berhasil dikirim');
     }
 
-    public function updateReportPut(Request $request,$id)
+    public function updateReportPut(Request $request, $id)
     {
         $data = $request->all();
         $data['id'] = $id;
@@ -50,7 +50,7 @@ class ReportController extends Controller
     public function feedbackList()
     {
         return Inertia::render('Feedback', [
-            'feedbacks' => Feedback::latest()->get()
+            'feedbacks' => Feedback::with('report', 'user')->get(),
         ]);
     }
 
