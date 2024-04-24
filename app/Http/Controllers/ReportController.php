@@ -39,7 +39,7 @@ class ReportController extends Controller
         return redirect()->back()->with('message', 'Laporan berhasil dikirim');
     }
 
-    public function updateReportPut(Request $request,$id)
+    public function updateReportPut(Request $request, $id)
     {
         $data = $request->all();
         $data['id'] = $id;
@@ -54,6 +54,19 @@ class ReportController extends Controller
         ]);
     }
 
+    public function feedbackPost(Request $request)
+    {
+        $request->validate([
+            'message' => 'required',
+            'report_id' => 'required'
+        ]);
+
+        $user_id = auth()->user()->id;
+        $report = Report::find($request->report_id);
+        $this->createFeedback(array_merge($request->all(), ['user_id' => $user_id]), $report);
+
+        return redirect()->back()->with('message', 'Feedback berhasil dikirim');
+    }
 
     private function createReport(array $data)
     {
@@ -77,6 +90,15 @@ class ReportController extends Controller
             Report::find($data['id'])->update([
                 'status' => $data['status'] ?? 'pending'
             ]);
+        } catch (\Exception $e) {
+            throw new $e->getMessage();
+        }
+    }
+
+    private function createFeedback(array $data, Report $report)
+    {
+        try {
+            $report::feedback()->create($data);
         } catch (\Exception $e) {
             throw new $e->getMessage();
         }
