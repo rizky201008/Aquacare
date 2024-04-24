@@ -50,7 +50,7 @@ class ReportController extends Controller
     public function feedbackList()
     {
         return Inertia::render('Feedback', [
-            'feedbacks' => Feedback::latest()->get()
+            'feedbacks' => Feedback::with('report', 'user')->get(),
         ]);
     }
 
