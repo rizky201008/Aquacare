@@ -3,10 +3,22 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import React from "react";
 
 import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
+import Popup from "reactjs-popup";
 
 export default function Feedback() {
-    const { data, users, feedbacks } = usePage().props;
-    console.log(feedbacks);
+    const { flash, errors, feedbacks } = usePage().props;
+    const { data, setData, reset, put } = useForm({
+        report_id: "",
+        message: "",
+    });
+    const storeFeedback = (e) => {
+        e.preventDefault();
+        router.post("/feedback", data, {
+            onSuccess: () => {
+                reset();
+            },
+        });
+    };
 
     return (
         <AdminLayout>
@@ -108,6 +120,108 @@ export default function Feedback() {
             <div className="text-center text-midnight text-2xl font-bold py-4 mt-8">
                 Daftar Feedback
             </div>
+            {flash.message && (
+                            <div
+                                className="flex items-center p-4 mb-4 text-sm text-midnight rounded-lg  dark:text-green-500"
+                                role="alert"
+                            >
+                                <svg
+                                    className="flex-shrink-0 inline w-4 h-4 me-3"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                >
+                                    <path
+                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                                </svg>
+                                <span className="sr-only">Info</span>
+                                <div>
+                                    <span className="font-medium">
+                                        Success alert!
+                                    </span>{" "}
+                                    {flash.message}
+                                </div>
+                            </div>
+                        )}
+            <Popup
+                modal
+                trigger={
+                    <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                        Create
+                    </button>
+                }
+            >
+                <form
+                    className="p-4 md:p-5 bg-slate-400 "
+                    onSubmit={storeFeedback}
+                >
+                    <div className="grid gap-4 mb-4 grid-cols-2">
+                        <div className="col-span-2">
+                            <label
+                                htmlFor="name"
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >
+                                Message
+                            </label>
+                            <input
+                                type="text"
+                                // id="default-search"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                placeholder="enter ..."
+                                // required
+                                onChange={(e) =>
+                                    setData("message", e.target.value)
+                                }
+                                value={data.message}
+                            />
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.message}
+                            </p>
+                        </div>
+                        <div className="col-span-2">
+                            <label
+                                htmlFor="name"
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >
+                                report id
+                            </label>
+                            <input
+                                type="text"
+                                // id="default-search"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                placeholder="enter ..."
+                                // required
+                                onChange={(e) =>
+                                    setData("report_id", e.target.value)
+                                }
+                                value={data.report_id}
+                            />
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.report_id}
+                            </p>
+                        </div>
+                    </div>
+                    <button
+                        type="submit"
+                        className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        <svg
+                            className="me-1 -ms-1 w-5 h-5"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fillRule="evenodd"
+                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                clipRule="evenodd"
+                            />
+                        </svg>
+                        Add New Feedback
+                    </button>
+                </form>
+            </Popup>
 
             <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
                 <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
@@ -121,17 +235,12 @@ export default function Feedback() {
                             </th>
                             <th
                                 scope="col"
-                                className="px-6 py-4 font-medium text-gray-900"
+                                className="px-6 py-4 font-medium text-gray-900 text-center"
                             >
                                 Message
                             </th>
 
-                            <th
-                                scope="col"
-                                className="flex justify-end  px-6 py-4  font-medium text-gray-900"
-                            >
-                                Action
-                            </th>
+                          
                             <th
                                 scope="col"
                                 className="px-6 py-4 font-medium text-gray-900"
@@ -147,50 +256,7 @@ export default function Feedback() {
                                         {feedback.message}
                                     </td>
 
-                                    <td className="px-6 py-4">
-                                        <div className="flex justify-end gap-4">
-                                            <a
-                                                x-data="{ tooltip: 'Delete' }"
-                                                href="#"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth="1.5"
-                                                    stroke="currentColor"
-                                                    className="h-6 w-6"
-                                                    x-tooltip="tooltip"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                                    />
-                                                </svg>
-                                            </a>
-                                            <a
-                                                x-data="{ tooltip: 'Edite' }"
-                                                href="#"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth="1.5"
-                                                    stroke="currentColor"
-                                                    className="h-6 w-6"
-                                                    x-tooltip="tooltip"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                                                    />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </td>
+                                    
                                 </tr>
                             );
                         })}
