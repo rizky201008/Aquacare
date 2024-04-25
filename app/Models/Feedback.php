@@ -10,7 +10,7 @@ class Feedback extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['message', 'user_id'];
+    protected $fillable = ['message', 'user_id', 'report_id'];
 
     public function user(): BelongsTo
     {
