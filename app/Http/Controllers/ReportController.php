@@ -62,8 +62,7 @@ class ReportController extends Controller
         ]);
 
         $user_id = auth()->user()->id;
-        $report = Report::find($request->report_id);
-        $this->createFeedback(array_merge($request->all(), ['user_id' => $user_id]), $report);
+        $this->createFeedback(array_merge($request->all(), ['user_id' => $user_id],['report_id' => $request->report_id]));
 
         return redirect()->back()->with('message', 'Feedback berhasil dikirim');
     }
@@ -95,12 +94,12 @@ class ReportController extends Controller
         }
     }
 
-    private function createFeedback(array $data, Report $report)
+    private function createFeedback(array $data)
     {
         try {
-            $report::feedback()->create($data);
+            Feedback::create($data);
         } catch (\Exception $e) {
-            throw new $e->getMessage();
+            throw $e;
         }
     }
 }
