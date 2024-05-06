@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
@@ -32,6 +33,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:petugas'])->group(function () {
     Route::get('feedback', [ReportController::class, 'feedbackList'])->name('feedback');
     Route::post('feedback', [ReportController::class, 'feedbackPost'])->name('feedback.post');
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('blogs', [BlogController::class, 'index'])->name('blogs');
 });
 
 Route::middleware('auth')->group(function () {
