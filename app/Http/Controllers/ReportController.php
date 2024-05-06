@@ -13,11 +13,18 @@ class ReportController extends Controller
     public function reportList()
     {
         $user = Auth::user();
-        if ($user->roles->name === 'admin') {
-            $reports = Report::latest()->get();
-        } else {
-            $reports = $user->reports()->get();
+        switch ($user->roles->name) {
+            case 'admin':
+                $reports = Report::latest()->get();
+                break;
+            case 'petugas':
+                $reports = Report::where('status', 'approved')->get();
+                break;
+            default:
+                $reports = $user->reports()->get();
+                break;
         }
+
         return Inertia::render('Report', [
             'reports' => $reports
         ]);
@@ -62,7 +69,7 @@ class ReportController extends Controller
         ]);
 
         $user_id = auth()->user()->id;
-        $this->createFeedback(array_merge($request->all(), ['user_id' => $user_id],['report_id' => $request->report_id]));
+        $this->createFeedback(array_merge($request->all(), ['user_id' => $user_id], ['report_id' => $request->report_id]));
 
         return redirect()->back()->with('message', 'Feedback berhasil dikirim');
     }
