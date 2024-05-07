@@ -11,7 +11,7 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::latest()->get();
-        return Inertia::render('Blog');
+        return Inertia::render('Blog', ['blogs' => $blogs]);
     }
 
 }
