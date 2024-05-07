@@ -36,8 +36,10 @@ Route::middleware(['auth', 'role:petugas'])->group(function () {
     Route::post('feedback', [ReportController::class, 'feedbackPost'])->name('feedback.post');
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('blogs', [BlogController::class, 'index'])->name('blogs');
+Route::middleware(['auth', 'role:admin'])->prefix('blogs')->group(function () {
+    Route::get('/', [BlogController::class, 'allPost'])->name('blogs.list');
+    Route::get('create', [BlogController::class, 'createPost'])->name('blogs.create');
+    Route::post('create', [BlogController::class, 'createBlog'])->name('blogs.post');
 });
 
 Route::middleware('auth')->group(function () {
