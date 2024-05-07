@@ -17,6 +17,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+// Route::get('/', [HomeController::class, 'index']);
 
 Route::middleware(['auth', 'role:admin,petugas,user'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
