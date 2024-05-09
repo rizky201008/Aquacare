@@ -18,6 +18,15 @@ export default function Blog() {
                                 Your email address will not be published.
                                 Required fields are marked *
                             </p>
+                            <div className="mb-4">
+                                <input
+                                    type="file"
+                                    className="file-input bg-slate-200 w-full max-w-xs"
+                                />
+                            </div>
+                            <div className="mb-4">
+                            <input type="text" placeholder="Masukkan Title" className="input input-bordered bg-slate-200 text-gray-900 w-full max-w-xs" />
+                            </div>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                                 <div className="mb-4 col-span-1 md:col-span-3">
                                     <textarea
@@ -30,7 +39,8 @@ export default function Blog() {
                                         defaultValue={""}
                                     />
                                 </div>
-                                <div className="mb-4">
+
+                                {/* <div className="mb-4">
                                     <input
                                         type="text"
                                         id="name"
@@ -58,14 +68,14 @@ export default function Blog() {
                                         className="w-full px-3 py-2 dark:bg-gray-900 rounded-sm border dark:border-none border-gray-300 focus:outline-none border-solid focus:border-dashed"
                                         placeholder="Website"
                                     />
-                                </div>
+                                </div> */}
                             </div>
                             <div className="flex justify-end">
                                 <button
                                     type="submit"
-                                    className="py-4 px-6 bg-blue-950 text-white rounded-sm hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
+                                    className="py-2 px-4 bg-blue-700 text-white rounded-sm hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
                                 >
-                                    Post Comment →
+                                    Add Post →
                                 </button>
                             </div>
                         </form>
