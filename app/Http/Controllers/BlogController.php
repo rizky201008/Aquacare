@@ -15,7 +15,7 @@ class BlogController extends Controller
     public function allPost()
     {
         $blogs = Blog::latest()->get();
-        return Inertia::render('Blogs/Index', ['blogs' => $blogs]);
+        return Inertia::render('Blog', ['blogs' => $blogs]);
     }
 
     public function createPost()
