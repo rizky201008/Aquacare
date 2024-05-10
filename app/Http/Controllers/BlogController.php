@@ -15,12 +15,12 @@ class BlogController extends Controller
     public function allPost()
     {
         $blogs = Blog::latest()->get();
-        return Inertia::render('Blog', ['blogs' => $blogs]);
+        return Inertia::render('Blogs/Index', ['blogs' => $blogs]);
     }
 
     public function createPost()
     {
-        return Inertia::render('CreateBlog');
+        return Inertia::render('Blog');
     }
 
     public function createBlog(Request $request)
