@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, Head } from "@inertiajs/react";
 import Navbar from "@/Components/Navbar";
-import Pagination from "@/Components/Pagination";
 
 export default function Homepage(props) {
     return (
