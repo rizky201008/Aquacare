@@ -2,23 +2,14 @@ import { Link } from "@inertiajs/react";
 
 const Navbar = ({ user }) => {
     return (
-        // <div className="navbar bg-navy">
-        //     <div className="flex-1">
-        //         <a className="text-white text-xl">
-        //             PT Damai Lautan Nusantara
-        //         </a>
-        //     </div>
-        //     <div className="flex-none gap-2">
-        //
-        //     </div>
-        // </div>
+       
         <>
             {/* component */}
-            <nav className=" bg-navy w-full flex relative justify-between items-center mx-auto px-8 h-20 text-white">
+            <nav className=" bg-blue-700 w-full flex relative justify-between items-center mx-auto px-8 h-20 text-black">
                 {/* logo */}
-                <div className="inline-flex">
-                    <a className="_o6689fn" href="/">
-                        <div className="hidden md:block">
+                <div className="inline-flex text-white">
+                    <a className="_o6689fn text-white" href="/">
+                        <div className="hidden md:block text-white">
                             {/* <svg
                                 width={102}
                                 height={32}
@@ -51,7 +42,7 @@ const Navbar = ({ user }) => {
                                 className="inline-block py-2 px-3 hover:bg-gray-200 rounded-full"
                                 href="#"
                             >
-                                <div className="flex items-center relative cursor-pointer whitespace-nowrap">
+                                <div className="flex items-center text-white relative cursor-pointer whitespace-nowrap">
                                     Beranda
                                 </div>
                             </a>
