@@ -1,81 +1,107 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 
-import { Head, usePage, Link } from "@inertiajs/react";
+import { Head, usePage, Link, useForm, router } from "@inertiajs/react";
 import "../../css/sb-admin-2.css";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Blog() {
+    const { flash, errors } = usePage().props;
+
+    const { data, setData, post } = useForm({
+        title: "",
+        content: "",
+        image: "",
+    });
+
+    const handleFileChange = (e) => {
+        console.log(e.target.files);
+        setData("image", e.target.files[0]);
+    };
+    const handleInputChange = (e) => {
+        console.log(e.target);
+        const { name, value } = e.target;
+        setData(name, value);
+    };
+
+    const handleApi = () => {
+        const formData = new FormData();
+        formData.append("image", data.image);
+        formData.append("title", data.title);
+        formData.append("content", data.content);
+        router.post("/blogs/create", formData, {
+            onSuccess: () => {
+                reset();
+            },
+        });
+    };
+    // const storeInfo = (e) => {
+    //     e.preventDefault();
+    //     router.post("/blogs/create", data, {
+    //         onSuccess: () => {
+    //             reset();
+    //         },
+    //     });
+    // };
+
     return (
         <AdminLayout>
             <>
                 {/* component */}
                 <main className="mt-14 py-8 flex justify-center items-center dark:bg-slate-200">
+                    {/* <div className="mb-4">
+                        <input
+                            type="file"
+                            className="file-input bg-slate-200 w-full max-w-xs"
+                            onChange={handleImage}
+                        />
+                        <button onClick={handleApi}>submit</button>
+                    </div> */}
+                    {flash.message && (
+                        <div
+                            className="flex items-center p-4 mb-4 text-sm text-midnight rounded-lg  dark:text-green"
+                            role="alert"
+                        >
+                            <svg
+                                className="flex-shrink-0 inline w-4 h-4 me-3"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                            >
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span className="sr-only">Info</span>
+                            <div>
+                                <span className="font-medium">
+                                    Success alert!
+                                </span>{" "}
+                                {flash.message}
+                            </div>
+                        </div>
+                    )}
                     <div className="max-w-7xl dark:bg-slate-300 dark:text-gray-900">
                         <form className=" w-full p-4 rounded shadow-md">
-                            <h2 className="text-xl mb-4 tracking-wider font-lighter text-gray-900 dark:text-gray-200">
-                                New Article
-                            </h2>
-                            <p className="text-gray-600 mb-4">
-                                Your email address will not be published.
-                                Required fields are marked *
-                            </p>
-                            <div className="mb-4">
-                                <input
-                                    type="file"
-                                    className="file-input bg-slate-200 w-full max-w-xs"
-                                />
-                            </div>
-                            <div className="mb-4">
-                            <input type="text" placeholder="Masukkan Title" className="input input-bordered bg-slate-200 text-gray-900 w-full max-w-xs" />
-                            </div>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                <div className="mb-4 col-span-1 md:col-span-3">
-                                    <textarea
-                                        id="comment"
-                                        name="comment"
-                                        className="w-full px-3 py-2 dark:bg-slate-200 text-gray-900 rounded-sm border dark:border-none border-gray-300 focus:outline-none border-solid focus:border-dashed resize-none"
-                                        placeholder="Type Comment...*"
-                                        rows={5}
-                                        required=""
-                                        defaultValue={""}
-                                    />
-                                </div>
+                            <input type="file" onChange={handleFileChange} />
+                            <input
+                                type="text"
+                                name="title"
+                                value={data.title}
+                                onChange={handleInputChange}
+                            />
+                            <textarea
+                                name="content"
+                                value={data.content}
+                                onChange={handleInputChange}
+                            />
 
-                                {/* <div className="mb-4">
-                                    <input
-                                        type="text"
-                                        id="name"
-                                        name="name"
-                                        className="w-full px-3 py-2 dark:bg-gray-900 rounded-sm border dark:border-none border-gray-300 focus:outline-none border-solid focus:border-dashed"
-                                        placeholder="Name*"
-                                        required=""
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        className="w-full px-3 py-2 dark:bg-gray-900 rounded-sm border dark:border-none border-gray-300 focus:outline-none border-solid focus:border-dashed"
-                                        placeholder="Email*"
-                                        required=""
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <input
-                                        type="text"
-                                        id="website"
-                                        name="website"
-                                        className="w-full px-3 py-2 dark:bg-gray-900 rounded-sm border dark:border-none border-gray-300 focus:outline-none border-solid focus:border-dashed"
-                                        placeholder="Website"
-                                    />
-                                </div> */}
-                            </div>
                             <div className="flex justify-end">
                                 <button
+                                    onClick={handleApi}
                                     type="submit"
                                     className="py-2 px-4 bg-blue-700 text-white rounded-sm hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
                                 >
-                                    Add Post →
+                                    Add Article →
                                 </button>
                             </div>
                         </form>

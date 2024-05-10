@@ -20,7 +20,7 @@ class BlogController extends Controller
 
     public function createPost()
     {
-        return Inertia::render('CreateBlog');
+        return Inertia::render('Blog');
     }
 
     public function createBlog(Request $request)
