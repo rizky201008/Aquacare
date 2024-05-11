@@ -64,6 +64,9 @@ class BlogController extends Controller
 
     private function replaceImage(array $data, Blog $blog): void
     {
+        if ($blog->image_path !== null) {
+            $this->deleteImage($blog->image_path);
+        }
         $blog->update([
             'image_path' => $data['new_path'],
             'image_url' => $data['new_url']
