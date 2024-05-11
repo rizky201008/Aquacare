@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('kekentalan');
             $table->text('detail');
             $table->enum('status', ['pending', 'approved', 'rejected', 'completed', 'onprogress']);
-            $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->foreignIdFor(\App\Models\User::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
