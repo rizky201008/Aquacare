@@ -19,8 +19,13 @@ class Report extends Model
         'user_id',
     ];
 
-    public function feedback():HasMany
+    public function feedback(): HasMany
     {
         return $this->hasMany(Feedback::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
