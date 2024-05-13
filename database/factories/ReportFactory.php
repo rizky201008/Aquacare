@@ -20,6 +20,9 @@ class ReportFactory extends Factory
             'rasa' => $this->faker->word(),
             'suhu' => $this->faker->word(),
             'kekentalan' => $this->faker->word(),
+            'warna' => $this->faker->word(),
+            'bau' => $this->faker->word(),
+            'keasaman' => $this->faker->word(),
             'detail' => $this->faker->text(),
             'status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
             'user_id' => \App\Models\User::all()->random()->id
