@@ -9,29 +9,29 @@ export default function User() {
 
     return (
         <AdminLayout>
-            <div className="text-center text-midnight text-2xl font-bold py-4 mt-8">
+            <div className="text-center text-gray-900 text-2xl font-bold py-4 mt-8">
                 Daftar Pengguna
             </div>
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-6">
-                <table className="w-full text-sm text-center rtl:text-right text-midnight">
-                    <thead className="text-xs text-midnight uppercase bg-gray font-bold">
+                <table className="w-full text-sm text-center rtl:text-right text-gray-900">
+                    <thead className="text-xs text-midnight uppercase bg-slate-200 font-bold">
                         <tr>
                             <th scope="col" className="px-6 py-3">
-                                name
+                                ID
                             </th>
                             <th scope="col" className="px-6 py-3">
-                                email
+                                NAME
                             </th>
 
                             <th scope="col" className=" py-3">
-                                role
+                                EMAIL
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         {users.map((user, i) => {
                             return (
-                                <tr key={i}>
+                                <tr key={i} className="bg-slate-200">
                                     <th
                                         scope="row"
                                         className=" py-4  text-midnight font-medium whitespace-nowrap dark:text-black"
