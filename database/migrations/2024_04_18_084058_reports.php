@@ -15,6 +15,9 @@ return new class extends Migration {
             $table->string('rasa');
             $table->string('suhu');
             $table->string('kekentalan');
+            $table->string('warna');
+            $table->string('bau');
+            $table->string('keasaman');
             $table->text('detail');
             $table->enum('status', ['pending', 'approved', 'rejected', 'completed', 'onprogress']);
             $table->foreignIdFor(\App\Models\User::class)->constrained()->onDelete('cascade')->onUpdate('cascade');

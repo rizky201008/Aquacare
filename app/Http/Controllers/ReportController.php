@@ -54,13 +54,6 @@ class ReportController extends Controller
         return redirect()->back()->with('message', 'Laporan berhasil diupdate');
     }
 
-    public function feedbackList()
-    {
-        return Inertia::render('Feedback', [
-            'feedbacks' => Feedback::with('report', 'user')->get(),
-        ]);
-    }
-
     public function feedbackPost(Request $request)
     {
         $request->validate([
@@ -72,6 +65,16 @@ class ReportController extends Controller
         $this->createFeedback(array_merge($request->all(), ['user_id' => $user_id], ['report_id' => $request->report_id]));
 
         return redirect()->back()->with('message', 'Feedback berhasil dikirim');
+    }
+
+    public function reportDetail($id)
+    {
+        $report = Report::with(['feedback' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }, 'user', 'feedback.user'])->where('id', $id)->first();
+        return Inertia::render('ReportDetail', [
+            'report' => $report
+        ]);
     }
 
     private function createReport(array $data)
