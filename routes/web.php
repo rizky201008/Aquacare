@@ -25,14 +25,10 @@ Route::middleware(['auth', 'role:admin,petugas,user'])->group(function () {
     Route::get('user', [DashboardController::class, 'userlist'])->name('user.list');
     Route::get('report', [ReportController::class, 'reportList'])->name('report');
     Route::post('report', [ReportController::class, 'reportPost'])->name('report.post');
-});
-
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::put('report/{id}', [ReportController::class, 'updateReportPut'])->name('report.put');
+    Route::get('report/{id}', [ReportController::class, 'reportDetail'])->name('report.detail');
 });
 
 Route::middleware(['auth', 'role:petugas'])->group(function () {
-    Route::get('feedback', [ReportController::class, 'feedbackList'])->name('feedback');
     Route::post('feedback', [ReportController::class, 'feedbackPost'])->name('feedback.post');
 });
 
@@ -40,6 +36,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('blogs')->group(function () {
     Route::get('/', [BlogController::class, 'allPost'])->name('blogs.list');
     Route::get('create', [BlogController::class, 'createPost'])->name('blogs.create');
     Route::post('create', [BlogController::class, 'createBlog'])->name('blogs.post');
+    Route::put('report/{id}', [ReportController::class, 'updateReportPut'])->name('report.put');
 });
 
 Route::middleware('auth')->group(function () {
