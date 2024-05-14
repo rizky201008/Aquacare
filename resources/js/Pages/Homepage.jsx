@@ -1,18 +1,18 @@
 import React from "react";
-import { Link, Head, usePage } from "@inertiajs/react";
+import {Link, Head, usePage} from "@inertiajs/react";
 import Navbar from "@/Components/Navbar";
-import { FaFacebook } from "react-icons/fa6";
-import { FaTwitter } from "react-icons/fa6";
-import { FaGithubSquare } from "react-icons/fa";
+import {FaFacebook} from "react-icons/fa6";
+import {FaTwitter} from "react-icons/fa6";
+import {FaGithubSquare} from "react-icons/fa";
 
 
 export default function Homepage(props) {
-    const { blogs } = usePage().props;
+    const {blogs} = usePage().props;
     console.log(blogs);
     return (
         <div className=" min-h-screen  text-black text-2xl bg-white">
-            <Head title={props.title} />
-            <Navbar user={props.auth.user} />
+            <Head title={props.title}/>
+            <Navbar user={props.auth.user}/>
             <div className="m-auto max-w-6xl p-12">
                 <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/2 max-w-md flex flex-col justify-center">
@@ -50,8 +50,10 @@ export default function Homepage(props) {
             <div className="relative pt-2 lg:pt-2 min-h-screen">
                 <div className="bg-cover w-full flex justify-center items-center">
                     <div className="w-full bg-white p-5  bg-opacity-40 backdrop-filter backdrop-blur-lg">
-                        <div className="w-12/12 mx-auto rounded-2xl bg-white p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
+                        <div
+                            className="w-12/12 mx-auto rounded-2xl bg-white p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
+                            <div
+                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
                                 {blogs.map((blog, i) => (
                                     <div className="card card-compact w-96 bg-white shadow-xl">
                                         <figure>
@@ -59,8 +61,8 @@ export default function Homepage(props) {
                                                 // src={blog.image_url}
                                                 // alt={blog.slug}
 
-                                                src={`http://127.0.0.1:80001${blog.image_url}`}
-                                            />
+                                                src={blog.image_url}
+                                                alt={''}/>
                                         </figure>
                                         <div className="card-body">
                                             <h2 className="card-title">
@@ -72,7 +74,7 @@ export default function Homepage(props) {
                                                     Detail
                                                 </button>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 ))}
@@ -99,10 +101,10 @@ export default function Homepage(props) {
                                     respond 1-2 business days.
                                 </h5>
                                 <div className="mt-6 lg:mb-0 mb-6">
-                                    <FaTwitter />
-                                    <FaFacebook />
+                                    <FaTwitter/>
+                                    <FaFacebook/>
 
-                                    <FaGithubSquare />
+                                    <FaGithubSquare/>
                                 </div>
                             </div>
                             <div className="w-full lg:w-6/12 px-4">
@@ -188,7 +190,7 @@ export default function Homepage(props) {
                                 </div>
                             </div>
                         </div>
-                        <hr className="my-6 border-blueGray-300" />
+                        <hr className="my-6 border-blueGray-300"/>
                         <div className="flex flex-wrap items-center md:justify-between justify-center">
                             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
                                 <div className="text-sm text-blueGray-500 font-semibold py-1">
