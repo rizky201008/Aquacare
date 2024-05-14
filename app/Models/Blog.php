@@ -16,4 +16,8 @@ class Blog extends Model
         'image_url',
         'image_path'
     ];
+
+    public function imageUrl(){
+        
+    }
 }

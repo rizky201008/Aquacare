@@ -37,16 +37,16 @@ export default function ReportDetail({auth}) {
             <div className="card w-full bg-white text-primary-content mb-3">
                 <div className="card-body">
                     <h2 className="card-title">Laporan #{report.id}</h2>
-                    <p>Oleh : {report.user.name}</p>
-                    <p>Tanggal : {
+                    <p className="badge badge-neutral py-3 px-4">Oleh : {report.user.name}</p>
+                    <p className="">Tanggal : {
                         convertUTCDateToLocalDate(new Date(report.created_at)).toLocaleString()
                     }
                     </p>
                     <div className="divider"></div>
-                    <p className='text-xl'>
+                    <h3 className='text-xl font-serif font-semibold'>
                         Detail Laporan
-                    </p>
-                    <p>
+                    </h3>
+                    <p className="text-md">
                         {report.detail}
                     </p>
                     <div className="divider"></div>
@@ -54,14 +54,14 @@ export default function ReportDetail({auth}) {
                 <div className="overflow-x-auto">
                     <table className="table">
                         {/* head */}
-                        <thead>
+                        <thead >
                         <tr>
                             <th className='text-black font-bold'>#</th>
-                            <th className='text-black font-bold'>Ciri-ciri</th>
-                            <th className='text-black font-bold'>Detail</th>
+                            <th className='text-black font-bold uppercase '>Ciri-ciri</th>
+                            <th className='text-black font-bold uppercase '>Detail</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="font-extralight">
                         {/* row 1 */}
                         <tr>
                             <th>1</th>
@@ -123,9 +123,9 @@ export default function ReportDetail({auth}) {
                     {report.feedback.map((feedback, index) => (
                         <div className="card border-2 w-full bg-white text-primary-content" key={index}>
                             <div className="card-body">
-                                <h2 className="card-title">Oleh : {feedback.user.name}</h2>
+                                <h2 className="card-title badge badge-neutral py-3 px-6">Oleh : {feedback.user.name}</h2>
                                 <p>{feedback.message}</p>
-                                <p>Tanggal : {
+                                <p className="font-serif">Tanggal : {
                                     convertUTCDateToLocalDate(new Date(feedback.created_at)).toLocaleString()
                                 }</p>
                             </div>

@@ -5,6 +5,7 @@ import { FaFacebook } from "react-icons/fa6";
 import { FaTwitter } from "react-icons/fa6";
 import { FaGithubSquare } from "react-icons/fa";
 
+
 export default function Homepage(props) {
     const { blogs } = usePage().props;
     console.log(blogs);
@@ -46,30 +47,40 @@ export default function Homepage(props) {
                     </div>
                 </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
-                {blogs.map((blog, i) => (
-                    <div className="card card-compact w-96 bg-base-100 shadow-xl">
-                        <figure>
-                            <img
-                                // src={blog.image_url}
-                                // alt={blog.slug}
+            <div className="relative pt-2 lg:pt-2 min-h-screen">
+                <div className="bg-cover w-full flex justify-center items-center">
+                    <div className="w-full bg-white p-5  bg-opacity-40 backdrop-filter backdrop-blur-lg">
+                        <div className="w-12/12 mx-auto rounded-2xl bg-white p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
+                                {blogs.map((blog, i) => (
+                                    <div className="card card-compact w-96 bg-white shadow-xl">
+                                        <figure>
+                                            <img
+                                                // src={blog.image_url}
+                                                // alt={blog.slug}
 
-                                src={blog.image_url}
-                            />
-                        </figure>
-                        <div className="card-body">
-                            <h2 className="card-title">{blog.title}</h2>
-                            <p>{blog.content}</p>
-                            <div className="card-actions justify-end">
-                                <button className="btn btn-primary">
-                                    Detail
-                                </button>
+                                                src={`http://127.0.0.1:80001${blog.image_url}`}
+                                            />
+                                        </figure>
+                                        <div className="card-body">
+                                            <h2 className="card-title">
+                                                {blog.title}
+                                            </h2>
+                                            <p>{blog.content}</p>
+                                            <div className="card-actions justify-end">
+                                                <button className="btn btn-primary">
+                                                    Detail
+                                                </button>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
-                ))}
+                </div>
             </div>
-
             {/* <div className="mt-4 flex justify-center">
                 {" "}
                 <Pagination jadwals={jadwals} />
@@ -182,22 +193,13 @@ export default function Homepage(props) {
                             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
                                 <div className="text-sm text-blueGray-500 font-semibold py-1">
                                     Copyright ©{" "}
-                                    <span id="get-current-year">2021</span>
-                                    <a
-                                        href="https://www.creative-tim.com/product/notus-js"
-                                        className="text-blueGray-500 hover:text-gray-800"
-                                        target="_blank"
-                                    >
-                                        {" "}
-                                        Notus JS by
-                                    </a>
+                                    <span id="get-current-year">2024</span>
                                     <a
                                         href="https://www.creative-tim.com?ref=njs-profile"
                                         className="text-blueGray-500 hover:text-blueGray-800"
                                     >
-                                        Creative Tim
+                                        <span></span> Aquacare
                                     </a>
-                                    .
                                 </div>
                             </div>
                         </div>
