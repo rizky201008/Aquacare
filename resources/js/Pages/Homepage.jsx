@@ -1,11 +1,13 @@
 import React from "react";
-import { Link, Head } from "@inertiajs/react";
+import { Link, Head, usePage } from "@inertiajs/react";
 import Navbar from "@/Components/Navbar";
 import { FaFacebook } from "react-icons/fa6";
 import { FaTwitter } from "react-icons/fa6";
 import { FaGithubSquare } from "react-icons/fa";
 
 export default function Homepage(props) {
+    const { blogs } = usePage().props;
+    console.log(blogs);
     return (
         <div className=" min-h-screen  text-black text-2xl bg-white">
             <Head title={props.title} />
@@ -43,6 +45,29 @@ export default function Homepage(props) {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
+                {blogs.map((blog, i) => (
+                    <div className="card card-compact w-96 bg-base-100 shadow-xl">
+                        <figure>
+                            <img
+                                // src={blog.image_url}
+                                // alt={blog.slug}
+
+                                src={blog.image_url}
+                            />
+                        </figure>
+                        <div className="card-body">
+                            <h2 className="card-title">{blog.title}</h2>
+                            <p>{blog.content}</p>
+                            <div className="card-actions justify-end">
+                                <button className="btn btn-primary">
+                                    Detail
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
 
             {/* <div className="mt-4 flex justify-center">
