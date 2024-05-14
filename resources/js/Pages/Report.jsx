@@ -72,7 +72,7 @@ export default function Report({auth}) {
                         <div className="col-span-2">
                             <label
                                 htmlFor="name"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                className="block mb-2 text-sm  dark:text-white"
                             >
                                 Rasa
                             </label>
@@ -94,7 +94,7 @@ export default function Report({auth}) {
                         <div className="col-span-2">
                             <label
                                 htmlFor="name"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                className="block mb-2 text-sm  dark:text-white"
                             >
                                 Suhu
                             </label>
@@ -116,7 +116,7 @@ export default function Report({auth}) {
                         <div className="col-span-2">
                             <label
                                 htmlFor="name"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                className="block mb-2 text-sm  dark:text-white"
                             >
                                 Kekentalan
                             </label>
@@ -138,7 +138,7 @@ export default function Report({auth}) {
                         <div className="col-span-4">
                             <label
                                 htmlFor="name"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                className="block mb-2 text-sm  dark:text-white"
                             >
                                 Detail Air
                             </label>
@@ -220,64 +220,37 @@ export default function Report({auth}) {
                 </div>
             </div>
             <div></div>
-            <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
-                <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
-                    <thead className="bg-gray-50 text-center">
+           <div className="overflow-x-auto  ">
+                <table className="table">
+                    <thead className="bg-gray-950 rounded-md text-white text-center">
                     <tr>
-                        <th
-                            scope="col"
-                            className="px-6 py-4 font-medium text-gray-900"
-                        >
-                            Rasa
-                        </th>
-                        <th
-                            scope="col"
-                            className="px-6 py-4 font-medium text-gray-900"
-                        >
-                            Suhu
-                        </th>
-                        <th
-                            scope="col"
-                            className="px-6 py-4 font-medium text-gray-900"
-                        >
-                            Kekentalan
-                        </th>
-                        <th
-                            scope="col"
-                            className="px-6 py-4 font-medium text-gray-900"
-                        >
-                            Detail Air
-                        </th>
-                        <th
-                            scope="col"
-                            className="px-6 py-4 font-medium text-gray-900"
-                        >
-                            Status
-                        </th>
+                        <th className=" ">Rasa</th>
+                            <th className=" ">Suhu</th>
+                            <th className=" ">Kekentalan</th>
+                            <th className=" ">Warna</th>
+                            <th className=" ">Bau</th>
+                            <th className=" ">Keasaman</th>
+                            <th className=" ">Detail Air</th>
+                            <th className=" ">Status</th>
 
-                        <th
-                            scope="col"
-                            className="px-6 py-4 font-medium text-gray-900"
-                        >
-                            Aksi
-                        </th>
+                            <th className=" " />
                     </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 border-t border-gray-100">
                     {reports.map((report, i) => {
                         return (
                             <tr className="hover:bg-gray-50" key={i}>
-                                <td className="px-6 py-4">{report.rasa}</td>
-                                <td className="px-6 py-4">{report.suhu}</td>
-                                <td className="px-6 py-4">
-                                    {report.kekentalan}
-                                </td>
-                                <td className="px-6 py-4">
-                                    {report.detail}
-                                </td>
-                                <td className="px-6 py-4">
-                                    {report.status}
-                                </td>
+                                <td className="">{report.rasa}</td>
+                                    <td className="">{report.suhu}</td>
+                                    <td className="">{report.kekentalan}</td>
+                                    <td className="">{report.warna}</td>
+                                    <td className="">{report.bau}</td>
+                                    <td className="">{report.keasaman}</td>
+                                    <td className="">{report.detail}</td>
+
+                                    <td className="badge  badge-outline my-16">
+                                        {report.status}
+                                    </td>
 
                                 <td className="px-6 py-4">
                                     <div className="flex justify-end gap-4">
@@ -286,7 +259,7 @@ export default function Report({auth}) {
                                                 modal
                                                 trigger={
                                                     <button
-                                                        className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                                                        className="bg-amber-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                                                         Edit
                                                     </button>
                                                 }
@@ -337,7 +310,6 @@ export default function Report({auth}) {
                                                                 }
                                                             )}
                                                     </select>
-
                                                     <button
                                                         className="btn w-full"
                                                         type={"submit"}
