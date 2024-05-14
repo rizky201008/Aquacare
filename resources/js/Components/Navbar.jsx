@@ -81,7 +81,7 @@ const Navbar = ({ user }) => {
                                     </>
                                 ) : (
                                     <>
-                                        <li>
+                                        {/* <li>
                                             <Link
                                                 href={route(
                                                     "redirectAuthenticatedUsers"
@@ -94,7 +94,7 @@ const Navbar = ({ user }) => {
                                                     New
                                                 </span>
                                             </Link>
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <Link
                                                 href={route("logout")}
