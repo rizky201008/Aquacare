@@ -315,7 +315,8 @@ export default function Dashboard({auth}) {
 
         case "petugas" :
             roleContent = (
-                <div>
+                <div
+                className="h-min-screen">
                     <h1>Welcome Petugas</h1>
                 </div>
             )
@@ -323,7 +324,7 @@ export default function Dashboard({auth}) {
 
         case "user" :
             roleContent = (
-                <div>
+                <div className="h-min-screen">
                     <h1>Welcome User</h1>
                 </div>
             )

@@ -68,21 +68,21 @@ export default function Report({auth}) {
                 }
             >
                 <form
-                    className="p-4 md:p-5 bg-slate-400 "
+                    className="p-8 md:p- bg-slate-400 "
                     onSubmit={storeReport}
                 >
                     <div className="grid gap-4 mb-4 grid-cols-2">
                         <div className="col-span-2">
                             <label
                                 htmlFor="name"
-                                className="block mb-2 text-sm  dark:text-white"
+                                className="block mb-2 text-sm  text-white"
                             >
                                 Rasa
                             </label>
                             <input
                                 type="text"
                                 // id="default-search"
-                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
                                 placeholder="enter ..."
                                 // required
                                 onChange={(e) =>
@@ -97,14 +97,14 @@ export default function Report({auth}) {
                         <div className="col-span-2">
                             <label
                                 htmlFor="name"
-                                className="block mb-2 text-sm  dark:text-white"
+                                className="block mb-2 text-sm  text-white"
                             >
                                 Suhu
                             </label>
                             <input
                                 type="text"
                                 // id="default-search"
-                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
                                 placeholder="enter ..."
                                 // required
                                 onChange={(e) =>
@@ -119,14 +119,14 @@ export default function Report({auth}) {
                         <div className="col-span-2">
                             <label
                                 htmlFor="name"
-                                className="block mb-2 text-sm  dark:text-white"
+                                className="block mb-2 text-sm  text-white"
                             >
                                 Kekentalan
                             </label>
                             <input
                                 type="text"
                                 // id="default-search"
-                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
                                 placeholder="enter ..."
                                 // required
                                 onChange={(e) =>
@@ -138,17 +138,83 @@ export default function Report({auth}) {
                                 {errors.kekentalan}
                             </p>
                         </div>
+                        <div className="col-span-2">
+                            <label
+                                htmlFor="name"
+                                className="block mb-2 text-sm  text-white"
+                            >
+                                Warna
+                            </label>
+                            <input
+                                type="text"
+                                // id="default-search"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
+                                placeholder="enter ..."
+                                // required
+                                onChange={(e) =>
+                                    setData("warna", e.target.value)
+                                }
+                                value={data.warna}
+                            />
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.warna}
+                            </p>
+                        </div>
+                        <div className="col-span-2">
+                            <label
+                                htmlFor="name"
+                                className="block mb-2 text-sm  text-white"
+                            >
+                                Bau
+                            </label>
+                            <input
+                                type="text"
+                                // id="default-search"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
+                                placeholder="enter ..."
+                                // required
+                                onChange={(e) =>
+                                    setData("bau", e.target.value)
+                                }
+                                value={data.bau}
+                            />
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.bau}
+                            </p>
+                        </div>
+                        <div className="col-span-2">
+                            <label
+                                htmlFor="name"
+                                className="block mb-2 text-sm  text-white"
+                            >
+                                Keasaman
+                            </label>
+                            <input
+                                type="text"
+                                // id="default-search"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
+                                placeholder="enter ..."
+                                // required
+                                onChange={(e) =>
+                                    setData("keasaman", e.target.value)
+                                }
+                                value={data.keasaman}
+                            />
+                            <p className="text-red-500 text-sm mt-2">
+                                {errors.keasaman}
+                            </p>
+                        </div>
                         <div className="col-span-4">
                             <label
                                 htmlFor="name"
-                                className="block mb-2 text-sm  dark:text-white"
+                                className="block mb-2 text-sm  text-white"
                             >
                                 Detail Air
                             </label>
                             <input
                                 type="text"
                                 // id="default-search"
-                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
                                 placeholder="enter ..."
                                 // required
                                 onChange={(e) =>

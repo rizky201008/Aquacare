@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Feedback;
 use App\Models\Report;
 use Illuminate\Http\Request;
@@ -29,6 +30,10 @@ class ReportController extends Controller
             'reports' => $reports
         ]);
     }
+    public function blogList(){
+        $blogs = Blog::all();
+        return Inertia::render('Homepage', ['blogs' => $blogs]);
+    }
 
     public function reportPost(Request $request)
     {
@@ -36,6 +41,9 @@ class ReportController extends Controller
             'rasa' => 'required',
             'suhu' => 'required',
             'kekentalan' => 'required',
+            'bau' => 'required',
+            'warna' => 'required',
+            'keasaman' => 'required',
             'detail' => 'required'
         ]);
 
@@ -84,6 +92,9 @@ class ReportController extends Controller
                 'rasa' => $data['rasa'],
                 'suhu' => $data['suhu'],
                 'kekentalan' => $data['kekentalan'],
+                'warna' => $data['warna'],
+                'bau' => $data['bau'],
+                'keasaman' => $data['keasaman'],
                 'detail' => $data['detail'],
                 'status' => $data['status'] ?? 'pending',
                 'user_id' => $data['user_id']
