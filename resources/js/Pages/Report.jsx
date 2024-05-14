@@ -308,7 +308,7 @@ export default function Report({auth}) {
                     <tbody className="divide-y divide-gray-100 border-t border-gray-100">
                     {reports.map((report, i) => {
                         return (
-                            <tr className="hover:bg-gray-50 text-gray-800" key={i}>
+                            <tr className="bg-gray-50 text-gray-800" key={i}>
                                 <td className="">{report.rasa}</td>
                                     <td className="">{report.suhu}</td>
                                     <td className="">{report.kekentalan}</td>
@@ -389,11 +389,10 @@ export default function Report({auth}) {
                                             </Popup>
                                         )}
                                     </div>
-                                    {role === "petugas" && (
-                                        <button
-                                            onClick={() => router.get('/report/' + report.id)}
-                                            className="btn btn-secondary">Lihat Detail</button>
-                                    )}
+                                    <button
+                                        onClick={() => router.get('/report/' + report.id)}
+                                        className="btn btn-secondary">Lihat Detail</button>
+                        
                                 </td>
                             </tr>
                         );
