@@ -53,7 +53,7 @@ export default function Homepage(props) {
                         <div className="w-12/12 mx-auto rounded-2xl bg-white p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
                                 {blogs.map((blog, i) => (
-                                    <div className="card card-compact w-96 bg-white shadow-xl">
+                                    <div key={i} className="card card-compact w-96 bg-white shadow-xl">
                                         <figure>
                                             <img
                                                 // src={blog.image_url}
