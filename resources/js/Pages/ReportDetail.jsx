@@ -12,10 +12,6 @@ export default function ReportDetail({auth}) {
         message: "",
     });
 
-    useEffect(() => {
-        setData('report_id', report.id);
-    })
-
     const storeFeedback = (e) => {
         e.preventDefault();
         router.post(route('feedback.post'), data, {
