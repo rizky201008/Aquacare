@@ -18,7 +18,7 @@ use Inertia\Inertia;
 //    ]);
 //});
  Route::get('/', [HomeController::class, 'index']);
-
+Route::get('/', [ReportController::class, 'blogList']);
 Route::middleware(['auth', 'role:admin,petugas,user'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     // Route::get('/dashboard',[UserController::class,'count'])->name('user.count');
