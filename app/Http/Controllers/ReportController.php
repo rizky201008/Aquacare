@@ -70,7 +70,7 @@ class ReportController extends Controller
         ]);
 
         $user_id = auth()->user()->id;
-        $this->createFeedback(array_merge($request->all(), ['user_id' => $user_id], ['report_id' => $request->report_id]));
+        $this->createFeedback(array_merge($request->all(), ['user_id' => $user_id]));
 
         return redirect()->back()->with('message', 'Feedback berhasil dikirim');
     }
