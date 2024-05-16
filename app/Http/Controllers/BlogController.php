@@ -46,9 +46,11 @@ class BlogController extends Controller
 
     private function saveBlog(array $data)
     {
-        return Blog::create(
+        Blog::create(
             $data
         );
+
+        return redirect()->back()->with('message', 'Laporan berhasil dikirim');
     }
 
     private function saveImage(array|UploadedFile $file, Blog $blog): void
