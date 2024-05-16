@@ -25,12 +25,9 @@ export default function Blog() {
         setData(name, value);
     };
 
-    const handleApi = () => {
-        const formData = new FormData();
-        formData.append("image", data.image);
-        formData.append("title", data.title);
-        formData.append("content", data.content);
-        router.post("/blogs/create", formData, {
+    const handleApi = (e) => {
+        e.preventDefault();
+        router.post(route('blogs.post'), data, {
             onSuccess: () => {
                 reset();
             },
@@ -82,7 +79,7 @@ export default function Blog() {
                         </div>
                     )}
                     <div className="max-w-7xl bg-slate-300 dark:text-gray-900">
-                        <form className=" w-full p-4 rounded shadow-md">
+                        <form className=" w-full p-4 rounded shadow-md" onSubmit={handleApi} method="post">
                             <div class="mb-4">
                                 <label
                                     for="email"
@@ -142,8 +139,7 @@ export default function Blog() {
 
                             <div className="flex justify-end">
                                 <button
-                                    onClick={handleApi}
-                                    type="submit"
+                                    type={"submit"}
                                     className="py-2 px-4 bg-blue-800 text-white rounded-sm hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
                                 >
                                     Tambah Artikel →
@@ -166,7 +162,7 @@ export default function Blog() {
                                                 <img
                                                     // src={blog.image_url}
                                                     // alt={blog.slug}
-                                                    
+
                                                     src={blog.image_url}
                                                 />
                                             </figure>
@@ -186,7 +182,7 @@ export default function Blog() {
                                         </div>
                                     ))}
 
-                                  
+
                                 </div>
                             </div>
                         </div>

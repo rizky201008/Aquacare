@@ -34,8 +34,8 @@ Route::middleware(['auth', 'role:petugas'])->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->prefix('blogs')->group(function () {
     Route::get('/', [BlogController::class, 'allPost'])->name('blogs.list');
-    Route::get('create', [BlogController::class, 'createPost'])->name('blogs.create');
-    Route::post('create', [BlogController::class, 'createBlog'])->name('blogs.post');
+    Route::get('create', [BlogController::class, 'createBlog'])->name('blogs.create');
+    Route::post('/', [BlogController::class, 'createBlogPost'])->name('blogs.post');
     Route::put('report/{id}', [ReportController::class, 'updateReportPut'])->name('report.put');
 });
 
