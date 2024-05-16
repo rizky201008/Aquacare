@@ -8,11 +8,12 @@ export default function ReportDetail({ auth }) {
     const { report } = usePage().props;
     const { flash, errors, feedbacks } = usePage().props;
     const { data, setData, reset, put } = useForm({
-        report_id: "",
+        report_id: null,
         message: "",
     });
 
     const storeFeedback = (e) => {
+        setData("report_id", report.id);
         e.preventDefault();
         router.post(route("feedback.post"), data, {
             onSuccess: () => {
