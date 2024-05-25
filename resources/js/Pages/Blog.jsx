@@ -1,18 +1,17 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 
-import { Head, usePage, Link, useForm, router } from "@inertiajs/react";
+import {Head, usePage, Link, useForm, router} from "@inertiajs/react";
 import "../../css/sb-admin-2.css";
-import { useState } from "react";
-import axios from "axios";
+import {useState} from "react";
 
 export default function Blog() {
-    const { flash, errors, blogs } = usePage().props;
-    console.log(blogs);
-
-    const { data, setData, post } = useForm({
+    const {flash, errors, blogs} = usePage().props;
+    const [formState, setFormState] = useState("create")
+    const [selectedId, setSelectedId] = useState(null)
+    const {data, setData, post} = useForm({
         title: "",
         content: "",
-        image: "",
+        image: ""
     });
 
     const handleFileChange = (e) => {
@@ -20,118 +19,109 @@ export default function Blog() {
         setData("image", e.target.files[0]);
     };
     const handleInputChange = (e) => {
-        console.log(e.target);
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setData(name, value);
+        console.log(data)
     };
 
-    const handleApi = (e) => {
+    const reset = () => {
+        setData({
+            title: "",
+            content: "",
+            image: null
+        });
+    }
+
+    const handleCreateApi = (e) => {
         e.preventDefault();
-        router.post(route('blogs.post'), data, {
+        router.post(route('blogs.create-post'), data, {
             onSuccess: () => {
                 reset();
             },
         });
     };
-    // const storeInfo = (e) => {
-    //     e.preventDefault();
-    //     router.post("/blogs/create", data, {
-    //         onSuccess: () => {
-    //             reset();
-    //         },
-    //     });
-    // };
+
+    const handleUpdateApi = (e) => {
+        console.log(Object.assign(data, {'id': selectedId}))
+        e.preventDefault();
+        router.post(route('blogs.update-post'), Object.assign(data, {'id': selectedId}), {
+            onSuccess: () => {
+                reset();
+            },
+        });
+    };
 
     return (
         <AdminLayout>
             <>
                 {/* component */}
-                <main className=" mb-4 flex justify-center items-center dark:bg-slate-200">
-                    {/* <div className="mb-4">
-                        <input
-                            type="file"
-                            className="file-input bg-slate-200 w-full max-w-xs"
-                            onChange={handleImage}
-                        />
-                        <button onClick={handleApi}>submit</button>
-                    </div> */}
+                <main className=" mb-4 flex flex-wrap justify-center items-center dark:bg-slate-200">
                     {flash.message && (
-                        <div
-                            className="flex items-center p-4 mb-4 text-sm text-midnight rounded-lg  dark:text-green"
-                            role="alert"
-                        >
-                            <svg
-                                className="flex-shrink-0 inline w-4 h-4 me-3"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        <div role="alert" className="alert alert-success">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6"
+                                 fill="none"
+                                 viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
-                            <span className="sr-only">Info</span>
-                            <div>
-                                <span className="font-medium">
-                                    Success alert!
-                                </span>{" "}
-                                {flash.message}
-                            </div>
+                            <span>{flash.message}</span>
                         </div>
                     )}
-                    <div className="max-w-7xl bg-slate-300 dark:text-gray-900">
-                        <form className=" w-full p-4 rounded shadow-md" onSubmit={handleApi} method="post">
-                            <div class="mb-4">
+                    <div className="w-full bg-slate-300 dark:text-gray-900">
+                        <form className=" w-full p-4 rounded shadow-md" onSubmit={
+                            (formState === "create") ? handleCreateApi : handleUpdateApi
+                        } method="post">
+                            <div className="mb-4">
                                 <label
-                                    for="email"
-                                    class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2"
+                                    htmlFor="email"
+                                    className="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2"
                                 >
                                     Gambar Artikel
                                 </label>
                                 <input
                                     type="file"
-                                    class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     placeholder="masukkan mas"
                                     onChange={handleFileChange}
-                                    required
+                                    required={formState === "create"}
                                 />
                                 <p className="text-red-500 text-sm mt-2">
                                     {errors.image}
                                 </p>
                             </div>
-                            <div class="mb-4">
+                            <div className="mb-4">
                                 <label
-                                    for="email"
-                                    class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2"
+                                    htmlFor="email"
+                                    className="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2"
                                 >
                                     Judul Artikel
                                 </label>
                                 <input
-                                    class="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                                    type="text"
-                                    name="title"
+                                    className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     placeholder="Masukkan Judul"
-                                    value={data.title}
-                                    onChange={handleInputChange}
                                     required
+                                    defaultValue={data.title}
+                                    onChange={handleInputChange}
                                 />
                                 <p className="text-red-500 text-sm mt-2">
                                     {errors.title}
                                 </p>
                             </div>
-                            <div class="mb-4">
+                            <div className="mb-4">
                                 <label
-                                    for="email"
-                                    class="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2"
+                                    htmlFor="email"
+                                    className="block text-sm font-medium text-gray-800 dark:text-gray-300 mb-2"
                                 >
-                                    Deskripsi Artikel
+                                    Isi Artikel
                                 </label>
                                 <textarea
                                     className="textarea w-full bg-white"
-                                    placeholder="Bio"
                                     name="content"
-                                    value={data.content}
+                                    placeholder={"Isi artikel"}
+                                    defaultValue={data.content}
                                     onChange={handleInputChange}
-                                ></textarea>
+                                >
+                                </textarea>
                                 <p className="text-red-500 text-sm mt-2">
                                     {errors.content}
                                 </p>
@@ -142,7 +132,7 @@ export default function Blog() {
                                     type={"submit"}
                                     className="py-2 px-4 bg-blue-800 text-white rounded-sm hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800"
                                 >
-                                    Tambah Artikel →
+                                    {(formState === "create") ? "Tambah Artikel" : "Ubah Artikel"} →
                                 </button>
                             </div>
                         </form>
@@ -150,30 +140,38 @@ export default function Blog() {
                 </main>
             </>
             <>
-                {/* component */}
                 <div className="relative pt-2 lg:pt-2 min-h-screen">
                     <div className="bg-cover w-full flex justify-center items-center">
                         <div className="w-full bg-white p-5  bg-opacity-40 backdrop-filter backdrop-blur-lg">
-                            <div className="w-12/12 mx-auto rounded-2xl bg-white p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
+                            <div
+                                className="w-12/12 mx-auto rounded-2xl bg-white p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
+                                <div
+                                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
                                     {blogs.map((blog, i) => (
-                                        <div className="card card-compact w-96 bg-base-100 shadow-xl">
+                                        <div className="card card-compact w-96 bg-base-100 shadow-xl" key={i}>
                                             <figure>
                                                 <img
-                                                    // src={blog.image_url}
-                                                    // alt={blog.slug}
-
                                                     src={blog.image_url}
-                                                />
+                                                    alt={"okeok"}/>
                                             </figure>
                                             <div className="card-body">
                                                 <h2 className="card-title">
                                                     {blog.title}
                                                 </h2>
                                                 <p>
-                                                   {blog.content}
+                                                    {blog.content}
                                                 </p>
                                                 <div className="card-actions justify-end">
+                                                    <button className="btn btn-warning" onClick={(e) => {
+                                                        setFormState("edit")
+                                                        setData({
+                                                            title: blog.title,
+                                                            content: blog.content
+                                                        })
+                                                        setSelectedId(blog.id)
+                                                    }}>
+                                                        Edit
+                                                    </button>
                                                     <button className="btn btn-primary">
                                                         Detail
                                                     </button>
@@ -181,8 +179,6 @@ export default function Blog() {
                                             </div>
                                         </div>
                                     ))}
-
-
                                 </div>
                             </div>
                         </div>
