@@ -41,6 +41,25 @@ class BlogController extends Controller
 
     }
 
+    public function updateBlogPost(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        $request['slug'] = $this->createSlug($request->title);
+        $blog = Blog::find($request->id);
+        $blog->update($request->all());
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $this->saveImage($image, $blog->id);
+        }
+
+        return redirect()->back()->with('message', 'Artikel berhasil diupdate');
+    }
+
     private function createSlug(string $title): string
     {
         return Str::slug($title);
