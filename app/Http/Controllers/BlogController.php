@@ -18,12 +18,12 @@ class BlogController extends Controller
         return Inertia::render('Blog', ['blogs' => $blogs]);
     }
 
-    public function createPost()
+    public function createBlog()
     {
         return Inertia::render('Blog');
     }
 
-    public function createBlog(Request $request)
+    public function createBlogPost(Request $request)
     {
         $request->validate([
             'title' => 'required',
@@ -35,8 +35,29 @@ class BlogController extends Controller
         $image = $request->file('image');
         $blog = $this->saveBlog($request->all());
 
-        $this->saveImage($image, $blog);
+        $this->saveImage($image, $blog->id);
 
+        return redirect()->back()->with('message', 'Artikel berhasil dibuat');
+
+    }
+
+    public function updateBlogPost(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        $request['slug'] = $this->createSlug($request->title);
+        $blog = Blog::find($request->id);
+        $blog->update($request->all());
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $this->saveImage($image, $blog->id);
+        }
+
+        return redirect()->back()->with('message', 'Artikel berhasil diupdate');
     }
 
     private function createSlug(string $title): string
@@ -46,26 +67,25 @@ class BlogController extends Controller
 
     private function saveBlog(array $data)
     {
-        Blog::create(
+        return Blog::create(
             $data
         );
-
-        return redirect()->back()->with('message', 'Laporan berhasil dikirim');
     }
 
-    private function saveImage(array|UploadedFile $file, Blog $blog): void
+    private function saveImage(array|UploadedFile $file, int $blog): void
     {
         $file->store('blogs');
         $path = Storage::path('blogs/' . $file->hashName());
-        $url = Storage::url('blogs/' . $file->hashName());
+        $url = $file->hashName();
         $this->replaceImage([
             'new_path' => $path,
             'new_url' => $url
         ], $blog);
     }
 
-    private function replaceImage(array $data, Blog $blog): void
+    private function replaceImage(array $data, int $blogId): void
     {
+        $blog = Blog::find($blogId);
         if ($blog->image_path !== null) {
             $this->deleteImage($blog->image_path);
         }
