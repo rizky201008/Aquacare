@@ -5,23 +5,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-//Route::get('/', function () {
-//    return Inertia::render('Welcome', [
-//        'canLogin' => Route::has('login'),
-//        'canRegister' => Route::has('register'),
-//        'laravelVersion' => Application::VERSION,
-//        'phpVersion' => PHP_VERSION,
-//    ]);
-//});
- Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/', [ReportController::class, 'blogList']);
 Route::middleware(['auth', 'role:admin,petugas,user'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // Route::get('/dashboard',[UserController::class,'count'])->name('user.count');
     Route::get('user', [DashboardController::class, 'userlist'])->name('user.list');
     Route::get('report', [ReportController::class, 'reportList'])->name('report');
     Route::post('report', [ReportController::class, 'reportPost'])->name('report.post');
@@ -32,10 +21,12 @@ Route::middleware(['auth', 'role:petugas'])->group(function () {
     Route::post('feedback', [ReportController::class, 'feedbackPost'])->name('feedback.post');
 });
 
-Route::middleware(['auth', 'role:admin'])->prefix('blogs')->group(function () {
-    Route::get('/', [BlogController::class, 'allPost'])->name('blogs.list');
-    Route::get('create', [BlogController::class, 'createBlog'])->name('blogs.create');
-    Route::post('/', [BlogController::class, 'createBlogPost'])->name('blogs.post');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::prefix('blogs')->group(function () {
+        Route::get('/', [BlogController::class, 'allPost'])->name('blogs.list');
+        Route::post('update', [BlogController::class, 'updateBlogPost'])->name('blogs.update-post');
+        Route::post('create', [BlogController::class, 'createBlogPost'])->name('blogs.create-post');
+    });
     Route::put('report/{id}', [ReportController::class, 'updateReportPut'])->name('report.put');
 });
 
