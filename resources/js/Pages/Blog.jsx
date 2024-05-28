@@ -8,7 +8,7 @@ export default function Blog() {
     const {flash, errors, blogs} = usePage().props;
     const [formState, setFormState] = useState("create")
     const [selectedId, setSelectedId] = useState(null)
-    const {data, setData, post} = useForm({
+    const {data, setData} = useForm({
         title: "",
         content: "",
         image: ""
@@ -25,6 +25,8 @@ export default function Blog() {
     };
 
     const reset = () => {
+        setSelectedId(null)
+        setFormState("create")
         setData({
             title: "",
             content: "",
@@ -42,12 +44,30 @@ export default function Blog() {
     };
 
     const handleUpdateApi = (e) => {
-        console.log(Object.assign(data, {'id': selectedId}))
         e.preventDefault();
-        router.post(route('blogs.update-post'), Object.assign(data, {'id': selectedId}), {
+        const id = {id: selectedId}
+        router.post(route('blogs.update-post'), {...data, ...id}, {
             onSuccess: () => {
                 reset();
             },
+        });
+    };
+
+    const deleteBlog = (blog) => {
+        router.delete(route('blogs.delete', {id: blog.id}), {
+            onSuccess: () => {
+                reset();
+            },
+        })
+    }
+
+    const handleEdit = (blog) => {
+        setFormState("edit");
+        setSelectedId(blog.id);
+        setData({
+            title: blog.title,
+            content: blog.content,
+            image: null
         });
     };
 
@@ -100,7 +120,8 @@ export default function Blog() {
                                     className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     placeholder="Masukkan Judul"
                                     required
-                                    defaultValue={data.title}
+                                    name={'title'}
+                                    value={data.title}
                                     onChange={handleInputChange}
                                 />
                                 <p className="text-red-500 text-sm mt-2">
@@ -118,7 +139,7 @@ export default function Blog() {
                                     className="textarea w-full bg-white"
                                     name="content"
                                     placeholder={"Isi artikel"}
-                                    defaultValue={data.content}
+                                    value={data.content}
                                     onChange={handleInputChange}
                                 >
                                 </textarea>
@@ -162,15 +183,13 @@ export default function Blog() {
                                                     {blog.content}
                                                 </p>
                                                 <div className="card-actions justify-end">
-                                                    <button className="btn btn-warning" onClick={(e) => {
-                                                        setFormState("edit")
-                                                        setData({
-                                                            title: blog.title,
-                                                            content: blog.content
-                                                        })
-                                                        setSelectedId(blog.id)
-                                                    }}>
+                                                    <button className="btn btn-warning"
+                                                            onClick={() => handleEdit(blog)}>
                                                         Edit
+                                                    </button>
+                                                    <button className="btn btn-danger"
+                                                            onClick={() => deleteBlog(blog)}>
+                                                        Hapus
                                                     </button>
                                                     <button className="btn btn-primary">
                                                         Detail
