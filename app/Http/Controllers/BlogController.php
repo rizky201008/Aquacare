@@ -18,11 +18,6 @@ class BlogController extends Controller
         return Inertia::render('Blog', ['blogs' => $blogs]);
     }
 
-    public function createBlog()
-    {
-        return Inertia::render('Blog');
-    }
-
     public function createBlogPost(Request $request)
     {
         $request->validate([
@@ -100,5 +95,16 @@ class BlogController extends Controller
         if (FileFacade::exists($path)) {
             FileFacade::delete($path);
         }
+    }
+
+    public function deleteBlog($id)
+    {
+        $blog = Blog::find($id);
+        if ($blog->image_path !== null) {
+            $this->deleteImage($blog->image_path);
+        }
+
+        $blog->delete();
+        return redirect()->back()->with('message', 'Artikel berhasil dihapus');
     }
 }
