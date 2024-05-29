@@ -3,6 +3,7 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import {Head, usePage, Link, useForm, router} from "@inertiajs/react";
 import "../../css/sb-admin-2.css";
 import {useState} from "react";
+import BlogItem from "@/Components/BlogItem.jsx";
 
 export default function Blog() {
     const {flash, errors, blogs} = usePage().props;
@@ -168,34 +169,28 @@ export default function Blog() {
                                 className="w-12/12 mx-auto rounded-2xl bg-white p-5 bg-opacity-40 backdrop-filter backdrop-blur-lg">
                                 <div
                                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-center px-2 mx-auto">
-                                    {blogs.map((blog, i) => (
-                                        <div className="card card-compact w-96 bg-base-100 shadow-xl" key={i}>
-                                            <figure>
-                                                <img
-                                                    src={blog.image_url}
-                                                    alt={"okeok"}/>
-                                            </figure>
-                                            <div className="card-body">
-                                                <h2 className="card-title">
-                                                    {blog.title}
-                                                </h2>
-                                                <p>
-                                                    {blog.content}
-                                                </p>
-                                                <div className="card-actions justify-end">
-                                                    <button className="btn btn-warning"
-                                                            onClick={() => handleEdit(blog)}>
-                                                        Edit
-                                                    </button>
-                                                    <button className="btn btn-danger"
-                                                            onClick={() => deleteBlog(blog)}>
-                                                        Hapus
-                                                    </button>
-                                                    <button className="btn btn-primary">
-                                                        Detail
-                                                    </button>
-                                                </div>
-                                            </div>
+                                    {blogs.map((blog, index) => (
+                                        <div key={index}>
+                                            <BlogItem
+                                                blogItem={blog}
+                                                key={index}
+                                                userType={'admin'}
+                                                buttons={
+                                                    <>
+                                                        <button className="btn btn-warning"
+                                                                onClick={() => handleEdit(blog)}>
+                                                            Edit
+                                                        </button>
+                                                        <button className="btn btn-danger"
+                                                                onClick={() => deleteBlog(blog)}>
+                                                            Hapus
+                                                        </button>
+                                                        <button className="btn btn-primary">
+                                                            Detail
+                                                        </button>
+                                                    </>
+                                                }
+                                            />
                                         </div>
                                     ))}
                                 </div>
