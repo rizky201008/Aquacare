@@ -1,11 +1,8 @@
 import React from "react";
 import {Link, Head, usePage} from "@inertiajs/react";
-import Navbar from "@/Components/Navbar";
-import {FaTwitter} from "react-icons/fa6";
-import {FaGithubSquare} from "react-icons/fa";
 import BlogItem from "@/Components/BlogItem.jsx";
 
-const Homepage = (props) =>{
+const Homepage = () =>{
     const {blogs} = usePage().props;
 
     const menus = [
