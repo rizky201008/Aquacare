@@ -9,6 +9,8 @@ const Homepage = () =>{
         {name: 'Home', link: '#home'},
         {name: 'Fitur', link: '#features'},
         {name: 'Blogs', link: '#blogs'},
+        {name: 'Login', link:route("login")},
+        {name: 'Register', link:route("register")},
     ]
     return (
         <div>
