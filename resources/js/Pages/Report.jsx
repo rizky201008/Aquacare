@@ -1,11 +1,11 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import React, {useState} from "react";
+import React, { useState } from "react";
 
-import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
-import {Flowbite} from "flowbite-react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
+import { Flowbite } from "flowbite-react";
 import Popup from "reactjs-popup";
 
-export default function Report({auth}) {
+export default function Report({ auth }) {
     const role = auth.user.roles.name;
     const status = [
         "pending",
@@ -14,10 +14,10 @@ export default function Report({auth}) {
         "completed",
         "onprogress",
     ];
-    const {flash, errors, reports} = usePage().props;
+    const { flash, errors, reports } = usePage().props;
     const [showModal, setShowModal] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState("Pilih Status");
-    const {data, setData, reset, put} = useForm({
+    const { data, setData, reset, put } = useForm({
         rasa: "",
         suhu: "",
         kekentalan: "",
@@ -54,23 +54,19 @@ export default function Report({auth}) {
 
     const testButton = (id) => {
         console.log(`Id ${id}`);
-    }
+    };
 
     if (role === "user") {
         popup = (
             <Popup
                 modal
                 trigger={
-                    <button
-                        className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ms-10 ease-linear transition-all duration-150">
+                    <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ms-10 ease-linear transition-all duration-150">
                         Create
                     </button>
                 }
             >
-                <form
-                    className="p-8 md:p- bg-slate-400 "
-                    onSubmit={storeReport}
-                >
+                <form className="bg-slate-400 " onSubmit={storeReport}>
                     <div className="grid gap-4 mb-4 grid-cols-2">
                         <div className="col-span-2">
                             <label
@@ -173,9 +169,7 @@ export default function Report({auth}) {
                                 className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
                                 placeholder="enter ..."
                                 // required
-                                onChange={(e) =>
-                                    setData("bau", e.target.value)
-                                }
+                                onChange={(e) => setData("bau", e.target.value)}
                                 value={data.bau}
                             />
                             <p className="text-red-500 text-sm mt-2">
@@ -251,7 +245,7 @@ export default function Report({auth}) {
     }
     return (
         <AdminLayout>
-            <div className="rounded-t mb-0 px-4 py-3 border-0 mt-20">
+            <div className="rounded-t mb-0 px-4 py-3 border-0 ">
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                         <h3 className="font-semibold text-base text-gray-900">
@@ -269,8 +263,7 @@ export default function Report({auth}) {
                                     fill="currentColor"
                                     viewBox="0 0 20 20"
                                 >
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                                 </svg>
                                 <span className="sr-only">Info</span>
                                 <div>
@@ -289,11 +282,11 @@ export default function Report({auth}) {
                 </div>
             </div>
             <div></div>
-           <div className="overflow-x-auto  ">
+            <div className="overflow-x-auto  ">
                 <table className="table">
                     <thead className="bg-gray-950 rounded-md text-white text-center">
-                    <tr>
-                        <th className=" ">Rasa</th>
+                        <tr>
+                            <th className=" ">Rasa</th>
                             <th className=" ">Suhu</th>
                             <th className=" ">Kekentalan</th>
                             <th className=" ">Warna</th>
@@ -303,13 +296,16 @@ export default function Report({auth}) {
                             <th className=" ">Status</th>
 
                             <th className=" " />
-                    </tr>
+                        </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-                    {reports.map((report, i) => {
-                        return (
-                            <tr className="bg-gray-50 text-gray-800" key={i}>
-                                <td className="">{report.rasa}</td>
+                        {reports.map((report, i) => {
+                            return (
+                                <tr
+                                    className="bg-gray-50 text-gray-800"
+                                    key={i}
+                                >
+                                    <td className="">{report.rasa}</td>
                                     <td className="">{report.suhu}</td>
                                     <td className="">{report.kekentalan}</td>
                                     <td className="">{report.warna}</td>
@@ -321,82 +317,87 @@ export default function Report({auth}) {
                                         {report.status}
                                     </td>
 
-                                <td className="px-6 py-4">
-                                    <div className="flex justify-end gap-4">
-                                        {role === "admin" && (
-                                            <Popup
-                                                modal
-                                                trigger={
-                                                    <button
-                                                        className="bg-amber-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                                                        Edit
-                                                    </button>
-                                                }
-                                            >
-                                                <form
-                                                    className="p-4 md:p-5 bg-slate-400 "
-                                                    onSubmit={(e) =>
-                                                        updateReport(
-                                                            e,
-                                                            report.id
-                                                        )
+                                    <td className="px-6 py-4">
+                                        <div className="flex justify-end gap-4">
+                                            {role === "admin" && (
+                                                <Popup
+                                                    modal
+                                                    trigger={
+                                                        <button className="bg-amber-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                                                            Edit
+                                                        </button>
                                                     }
                                                 >
-                                                    <select
-                                                        onChange={(e) => {
-                                                            updateStatus(
-                                                                e.target
-                                                                    .value
-                                                            );
-                                                            setData(
-                                                                "status",
-                                                                e.target
-                                                                    .value
-                                                            );
-                                                        }}
-                                                        className="select w-full max-w-xs"
+                                                    <form
+                                                        className="p-4 md:p-5 bg-slate-400 "
+                                                        onSubmit={(e) =>
+                                                            updateReport(
+                                                                e,
+                                                                report.id
+                                                            )
+                                                        }
                                                     >
-                                                        <option>
-                                                            {selectedStatus}
-                                                        </option>
-                                                        {status &&
-                                                            status.map(
-                                                                (
-                                                                    status,
-                                                                    i
-                                                                ) => {
-                                                                    return (
-                                                                        <option
-                                                                            key={
-                                                                                i
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                status
-                                                                            }
-                                                                        </option>
-                                                                    );
-                                                                }
-                                                            )}
-                                                    </select>
-                                                    <button
-                                                        className="btn w-full"
-                                                        type={"submit"}
-                                                    >
-                                                        Button
-                                                    </button>
-                                                </form>
-                                            </Popup>
-                                        )}
-                                    </div>
-                                    <button
-                                        onClick={() => router.get('/report/' + report.id)}
-                                        className="btn btn-secondary">Lihat Detail</button>
-                        
-                                </td>
-                            </tr>
-                        );
-                    })}
+                                                        <select
+                                                            onChange={(e) => {
+                                                                updateStatus(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                                setData(
+                                                                    "status",
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
+                                                            className="select w-full max-w-xs"
+                                                        >
+                                                            <option>
+                                                                {selectedStatus}
+                                                            </option>
+                                                            {status &&
+                                                                status.map(
+                                                                    (
+                                                                        status,
+                                                                        i
+                                                                    ) => {
+                                                                        return (
+                                                                            <option
+                                                                                key={
+                                                                                    i
+                                                                                }
+                                                                            >
+                                                                                {
+                                                                                    status
+                                                                                }
+                                                                            </option>
+                                                                        );
+                                                                    }
+                                                                )}
+                                                        </select>
+                                                        <button
+                                                            className="btn w-full"
+                                                            type={"submit"}
+                                                        >
+                                                            Button
+                                                        </button>
+                                                    </form>
+                                                </Popup>
+                                            )}
+                                        </div>
+                                        <button
+                                            onClick={() =>
+                                                router.get(
+                                                    "/report/" + report.id
+                                                )
+                                            }
+                                            className="btn btn-secondary"
+                                        >
+                                            Lihat Detail
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
