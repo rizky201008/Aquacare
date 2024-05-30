@@ -66,7 +66,7 @@ export default function Report({ auth }) {
                     </button>
                 }
             >
-                <form className="bg-slate-400 " onSubmit={storeReport}>
+                <form className="px-5 py-4 bg-slate-400 " onSubmit={storeReport}>
                     <div className="grid gap-4 mb-4 grid-cols-2">
                         <div className="col-span-2">
                             <label
