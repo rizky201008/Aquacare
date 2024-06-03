@@ -2,20 +2,24 @@ import React from "react";
 import {Link, Head, usePage} from "@inertiajs/react";
 import BlogItem from "@/Components/BlogItem.jsx";
 
-const Homepage = () =>{
+const Homepage = () => {
+
     const {blogs} = usePage().props;
 
     const menus = [
-        {name: 'Home', link: '#home'},
+        {name: 'Home', link: '#'},
         {name: 'Fitur', link: '#features'},
         {name: 'Blogs', link: '#blogs'},
-        {name: 'Login', link:route("login")},
-        {name: 'Register', link:route("register")},
+        {name: 'Login', link: route("login")},
+        {name: 'Register', link: route("register")},
     ]
     return (
-        <div>
+        <div className='scroll-smooth'>
+            <Head>
+                <title>Welcome</title>
+            </Head>
             {/* Header */}
-            <header className="bg-blue-900 text-white p-4 navbar">
+            <header className="bg-blue-900 text-white p-4 navbar fixed">
                 <div className="container mx-auto flex justify-between items-center">
                     <a href={'/'} className="text-2xl font-bold">Aquacare</a>
                     <nav>
@@ -30,18 +34,18 @@ const Homepage = () =>{
 
             {/* Hero Section */}
             <section id="home" className="bg-cover bg-center h-screen"
-                     style={{backgroundImage: 'url(https://dindik.jatimprov.go.id/assets/images/bg/bg_main2.jpg)'}}>
+                     style={{backgroundImage: 'url(https://cdn.pixabay.com/photo/2016/11/21/12/36/ocean-1845110_640.jpg)'}}>
                 <div className="flex items-center justify-center h-full bg-black bg-opacity-50">
                     <div className="text-center text-white">
                         <h1 className="text-4xl md:text-6xl font-bold">Welcome to Aquacare</h1>
-                        <p className="mt-4 text-xl">Providing quality water services to the city of Surabaya</p>
-                        <button className="mt-8 btn btn-primary">Learn More</button>
+                        <p className="mt-4 text-xl">Providing quality water services for everyone</p>
+                        <a href={menus[1].link} className="mt-8 btn btn-primary">Learn More</a>
                     </div>
                 </div>
             </section>
 
             {/* Features Section */}
-            <section id="features" className="py-16 px-3 bg-gray-100 text-black">
+            <section id="features" className="py-32 px-3 bg-gray-100 text-black min-h-screen">
                 <div className="container mx-auto">
                     <h2 className="text-3xl font-bold text-center">Fitur Utama</h2>
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -65,7 +69,7 @@ const Homepage = () =>{
             </section>
 
             {/* Article Section */}
-            <section id="blogs" className="py-16 px-3 bg-blue-900">
+            <section id="blogs" className="py-32 px-3 bg-blue-900 min-h-screen">
                 <div className="container mx-auto">
                     <h2 className="text-3xl font-bold text-center text-white">Daftar Artikel</h2>
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-black">
