@@ -1,11 +1,11 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import React, { useState } from "react";
+import React, {useState} from "react";
 
-import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
-import { Flowbite } from "flowbite-react";
+import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
+import {Flowbite} from "flowbite-react";
 import Popup from "reactjs-popup";
 
-export default function Report({ auth }) {
+export default function Report({auth}) {
     const role = auth.user.roles.name;
     const status = [
         "pending",
@@ -14,23 +14,29 @@ export default function Report({ auth }) {
         "completed",
         "onprogress",
     ];
-    const { flash, errors, reports } = usePage().props;
-    const [showModal, setShowModal] = useState(false);
+    const {flash, errors, reports} = usePage().props;
     const [selectedStatus, setSelectedStatus] = useState("Pilih Status");
-    const { data, setData, reset, put } = useForm({
-        rasa: "",
-        suhu: "",
-        kekentalan: "",
-        bau: "",
-        warna: "",
-        keasaman: "",
+    const {data, setData, reset, put} = useForm({
+        rasa: "Tawar",
+        suhu: "Biasa",
+        kekentalan: "Encer",
+        bau: "Tidak Bau",
+        warna: "Tidak Berwarna",
+        keasaman: "Tidak Asam",
         detail: "",
         user_id: "",
         status: "",
     });
 
+    const rasa = ["Tawar", "Asin", "Manis", "Pahit", "Asam"]
+    const suhu = ["Dingin", 'Biasa', "Hangat", "Panas"]
+    const kekentalan = ["Encer", "Kental", "Sangat Kental"]
+    const bau = ["Tidak Bau", "Sedikit Bau", "Sangat Bau"]
+    const keasaman = ["Tidak Asam", "Sedikit Asam", "Sangat Asam"]
+
     let popup = null;
     const storeReport = (e) => {
+        console.log(data)
         e.preventDefault();
         router.post("/report", data, {
             onSuccess: () => {
@@ -44,7 +50,6 @@ export default function Report({ auth }) {
     };
     const updateReport = async (e, id) => {
         e.preventDefault();
-        console.log(id);
         router.put(`/report/${id}`, data, {
             onSuccess: () => {
                 reset();
@@ -52,16 +57,13 @@ export default function Report({ auth }) {
         });
     };
 
-    const testButton = (id) => {
-        console.log(`Id ${id}`);
-    };
-
     if (role === "user") {
         popup = (
             <Popup
                 modal
                 trigger={
-                    <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ms-10 ease-linear transition-all duration-150">
+                    <button
+                        className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ms-10 ease-linear transition-all duration-150">
                         Create
                     </button>
                 }
@@ -75,17 +77,16 @@ export default function Report({ auth }) {
                             >
                                 Rasa
                             </label>
-                            <input
-                                type="text"
-                                // id="default-search"
-                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
-                                placeholder="enter ..."
-                                // required
-                                onChange={(e) =>
-                                    setData("rasa", e.target.value)
+                            <select
+                                className="select select-bordered bg-none text-white w-full max-w-xs"
+                                onSelect={(e) => setData("rasa", e.target.value)}
+                            >
+                                {
+                                    rasa.map((rasa, index) => (
+                                        <option key={index} value={rasa}>{rasa}</option>
+                                    ))
                                 }
-                                value={data.rasa}
-                            />
+                            </select>
                             <p className="text-red-500 text-sm mt-2">
                                 {errors.rasa}
                             </p>
@@ -97,17 +98,16 @@ export default function Report({ auth }) {
                             >
                                 Suhu
                             </label>
-                            <input
-                                type="text"
-                                // id="default-search"
-                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
-                                placeholder="enter ..."
-                                // required
-                                onChange={(e) =>
-                                    setData("suhu", e.target.value)
+                            <select
+                                className="select select-bordered bg-none text-white w-full max-w-xs"
+                                onSelect={(e) => setData("suhu", e.target.value)}
+                            >
+                                {
+                                    suhu.map((suhu, index) => (
+                                        <option key={index} value={suhu}>{suhu}</option>
+                                    ))
                                 }
-                                value={data.suhu}
-                            />
+                            </select>
                             <p className="text-red-500 text-sm mt-2">
                                 {errors.suhu}
                             </p>
@@ -119,17 +119,16 @@ export default function Report({ auth }) {
                             >
                                 Kekentalan
                             </label>
-                            <input
-                                type="text"
-                                // id="default-search"
-                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
-                                placeholder="enter ..."
-                                // required
-                                onChange={(e) =>
-                                    setData("kekentalan", e.target.value)
+                            <select
+                                className="select select-bordered bg-none text-white w-full max-w-xs"
+                                onSelect={(e) => setData("kekentalan", e.target.value)}
+                            >
+                                {
+                                    kekentalan.map((kekentalan, index) => (
+                                        <option key={index} value={kekentalan}>{kekentalan}</option>
+                                    ))
                                 }
-                                value={data.kekentalan}
-                            />
+                            </select>
                             <p className="text-red-500 text-sm mt-2">
                                 {errors.kekentalan}
                             </p>
@@ -141,17 +140,14 @@ export default function Report({ auth }) {
                             >
                                 Warna
                             </label>
-                            <input
-                                type="text"
-                                // id="default-search"
-                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
-                                placeholder="enter ..."
-                                // required
-                                onChange={(e) =>
-                                    setData("warna", e.target.value)
-                                }
-                                value={data.warna}
-                            />
+                            <select
+                                className="select select-bordered bg-none text-white w-full max-w-xs"
+                                onSelect={(e) => setData("warna", e.target.value)}
+                            >
+                                <option value="Tidak Berwarna">Tidak Berwarna</option>
+                                <option value="Sedikit Keruh">Sedikit Keruh</option>
+                                <option value="Sangat Keruh">Sangat Keruh</option>
+                            </select>
                             <p className="text-red-500 text-sm mt-2">
                                 {errors.warna}
                             </p>
@@ -163,15 +159,16 @@ export default function Report({ auth }) {
                             >
                                 Bau
                             </label>
-                            <input
-                                type="text"
-                                // id="default-search"
-                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
-                                placeholder="enter ..."
-                                // required
-                                onChange={(e) => setData("bau", e.target.value)}
-                                value={data.bau}
-                            />
+                            <select
+                                className="select select-bordered bg-none text-white w-full max-w-xs"
+                                onSelect={(e) => setData("bau", e.target.value)}
+                            >
+                                {
+                                    bau.map((bau, index) => (
+                                        <option key={index} value={bau}>{bau}</option>
+                                    ))
+                                }
+                            </select>
                             <p className="text-red-500 text-sm mt-2">
                                 {errors.bau}
                             </p>
@@ -183,17 +180,18 @@ export default function Report({ auth }) {
                             >
                                 Keasaman
                             </label>
-                            <input
-                                type="text"
-                                // id="default-search"
-                                className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
-                                placeholder="enter ..."
-                                // required
-                                onChange={(e) =>
+                            <select
+                                className="select select-bordered bg-none text-white w-full max-w-xs"
+                                onSelect={(e) => {
                                     setData("keasaman", e.target.value)
+                                }}
+                            >
+                                {
+                                    keasaman.map((keasaman, index) => (
+                                        <option key={index} value={keasaman}>{keasaman}</option>
+                                    ))
                                 }
-                                value={data.keasaman}
-                            />
+                            </select>
                             <p className="text-red-500 text-sm mt-2">
                                 {errors.keasaman}
                             </p>
@@ -205,15 +203,14 @@ export default function Report({ auth }) {
                             >
                                 Detail Air
                             </label>
-                            <input
-                                type="text"
+                            <textarea
                                 // id="default-search"
                                 className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
                                 placeholder="enter ..."
                                 // required
-                                onChange={(e) =>
+                                onChange={(e) => {
                                     setData("detail", e.target.value)
-                                }
+                                }}
                                 value={data.detail}
                             />
                             <p className="text-red-500 text-sm mt-2">
@@ -263,7 +260,8 @@ export default function Report({ auth }) {
                                     fill="currentColor"
                                     viewBox="0 0 20 20"
                                 >
-                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                    <path
+                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
                                 </svg>
                                 <span className="sr-only">Info</span>
                                 <div>
@@ -285,119 +283,120 @@ export default function Report({ auth }) {
             <div className="overflow-x-auto  ">
                 <table className="table">
                     <thead className="bg-gray-950 rounded-md text-white text-center">
-                        <tr>
-                            <th className=" ">Rasa</th>
-                            <th className=" ">Suhu</th>
-                            <th className=" ">Kekentalan</th>
-                            <th className=" ">Warna</th>
-                            <th className=" ">Bau</th>
-                            <th className=" ">Keasaman</th>
-                            <th className=" ">Detail Air</th>
-                            <th className=" ">Status</th>
+                    <tr>
+                        <th className=" ">Rasa</th>
+                        <th className=" ">Suhu</th>
+                        <th className=" ">Kekentalan</th>
+                        <th className=" ">Warna</th>
+                        <th className=" ">Bau</th>
+                        <th className=" ">Keasaman</th>
+                        <th className=" ">Detail Air</th>
+                        <th className=" ">Status</th>
 
-                            <th className=" " />
-                        </tr>
+                        <th className=" "/>
+                    </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-                        {reports.map((report, i) => {
-                            return (
-                                <tr
-                                    className="bg-gray-50 text-gray-800"
-                                    key={i}
-                                >
-                                    <td className="">{report.rasa}</td>
-                                    <td className="">{report.suhu}</td>
-                                    <td className="">{report.kekentalan}</td>
-                                    <td className="">{report.warna}</td>
-                                    <td className="">{report.bau}</td>
-                                    <td className="">{report.keasaman}</td>
-                                    <td className="">{report.detail}</td>
+                    {reports.map((report, i) => {
+                        return (
+                            <tr
+                                className="bg-gray-50 text-gray-800"
+                                key={i}
+                            >
+                                <td className="">{report.rasa}</td>
+                                <td className="">{report.suhu}</td>
+                                <td className="">{report.kekentalan}</td>
+                                <td className="">{report.warna}</td>
+                                <td className="">{report.bau}</td>
+                                <td className="">{report.keasaman}</td>
+                                <td className="">{report.detail}</td>
 
-                                    <td className="badge  badge-outline my-16">
-                                        {report.status}
-                                    </td>
+                                <td className="badge  badge-outline my-16">
+                                    {report.status}
+                                </td>
 
-                                    <td className="px-6 py-4">
-                                        <div className="flex justify-end gap-4">
-                                            {role === "admin" && (
-                                                <Popup
-                                                    modal
-                                                    trigger={
-                                                        <button className="bg-amber-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                                                            Edit
-                                                        </button>
+                                <td className="px-6 py-4">
+                                    <div className="flex justify-end gap-4">
+                                        {role === "admin" && (
+                                            <Popup
+                                                modal
+                                                trigger={
+                                                    <button
+                                                        className="bg-amber-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                                                        Edit
+                                                    </button>
+                                                }
+                                            >
+                                                <form
+                                                    className="p-4 md:p-5 bg-slate-400 "
+                                                    onSubmit={(e) =>
+                                                        updateReport(
+                                                            e,
+                                                            report.id
+                                                        )
                                                     }
                                                 >
-                                                    <form
-                                                        className="p-4 md:p-5 bg-slate-400 "
-                                                        onSubmit={(e) =>
-                                                            updateReport(
-                                                                e,
-                                                                report.id
-                                                            )
-                                                        }
+                                                    <select
+                                                        onChange={(e) => {
+                                                            updateStatus(
+                                                                e.target
+                                                                    .value
+                                                            );
+                                                            setData(
+                                                                "status",
+                                                                e.target
+                                                                    .value
+                                                            );
+                                                        }}
+                                                        className="select w-full max-w-xs"
                                                     >
-                                                        <select
-                                                            onChange={(e) => {
-                                                                updateStatus(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                                setData(
-                                                                    "status",
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
-                                                            className="select w-full max-w-xs"
-                                                        >
-                                                            <option>
-                                                                {selectedStatus}
-                                                            </option>
-                                                            {status &&
-                                                                status.map(
-                                                                    (
-                                                                        status,
-                                                                        i
-                                                                    ) => {
-                                                                        return (
-                                                                            <option
-                                                                                key={
-                                                                                    i
-                                                                                }
-                                                                            >
-                                                                                {
-                                                                                    status
-                                                                                }
-                                                                            </option>
-                                                                        );
-                                                                    }
-                                                                )}
-                                                        </select>
-                                                        <button
-                                                            className="btn w-full"
-                                                            type={"submit"}
-                                                        >
-                                                            Button
-                                                        </button>
-                                                    </form>
-                                                </Popup>
-                                            )}
-                                        </div>
-                                        <button
-                                            onClick={() =>
-                                                router.get(
-                                                    "/report/" + report.id
-                                                )
-                                            }
-                                            className="btn btn-secondary"
-                                        >
-                                            Lihat Detail
-                                        </button>
-                                    </td>
-                                </tr>
-                            );
-                        })}
+                                                        <option>
+                                                            {selectedStatus}
+                                                        </option>
+                                                        {status &&
+                                                            status.map(
+                                                                (
+                                                                    status,
+                                                                    i
+                                                                ) => {
+                                                                    return (
+                                                                        <option
+                                                                            key={
+                                                                                i
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                status
+                                                                            }
+                                                                        </option>
+                                                                    );
+                                                                }
+                                                            )}
+                                                    </select>
+                                                    <button
+                                                        className="btn w-full"
+                                                        type={"submit"}
+                                                    >
+                                                        Button
+                                                    </button>
+                                                </form>
+                                            </Popup>
+                                        )}
+                                    </div>
+                                    <button
+                                        onClick={() =>
+                                            router.get(
+                                                "/report/" + report.id
+                                            )
+                                        }
+                                        className="btn btn-secondary"
+                                    >
+                                        Lihat Detail
+                                    </button>
+                                </td>
+                            </tr>
+                        );
+                    })}
                     </tbody>
                 </table>
             </div>
