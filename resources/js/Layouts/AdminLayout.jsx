@@ -12,10 +12,12 @@ const AdminLayout = ({ children, header }) => {
             sidebarItems = (
                 <aside
                     id="logo-sidebar"
-                    className="fixed top-0 left-0 z-40 w-64 h-screen pt-10 transition-transform -translate-x-full  border-r border-blue-600 sm:translate-x-0 bg-blue-600"
+                    className="fixed top-0 left-0 z-40 w-64 h-screen pt-4 transition-transform -translate-x-full  border-r border-blue-600 sm:translate-x-0 bg-blue-600"
                     aria-label="Sidebar"
                 >
                     <div className="h-min-screen px-3 pb-4 overflow-y-auto">
+                    <h1 className="mx-3 mb-4 text-white font-bold">Aquacare</h1>
+                        
                         <ul className="space-y-2 font-medium">
                             <li>
                                 <a
@@ -91,10 +93,11 @@ const AdminLayout = ({ children, header }) => {
             sidebarItems = (
                 <aside
                     id="logo-sidebar"
-                    className="fixed top-0 left-0 z-40 w-64 h-screen pt-10 transition-transform -translate-x-full  border-r border-blue-600 sm:translate-x-0 bg-blue-600"
+                    className="fixed top-0 left-0 z-40 w-64 h-screen pt-4 transition-transform -translate-x-full  border-r border-blue-600 sm:translate-x-0 bg-blue-600"
                     aria-label="Sidebar"
                 >
                     <div className="h-min-screen">
+                        <h1 className="mx-3 mb-4 text-white font-bold">Aquacare</h1>
                         <ul className="space-y-2 font-medium">
                             <li>
                                 <a
@@ -211,10 +214,12 @@ const AdminLayout = ({ children, header }) => {
             sidebarItems = (
                 <aside
                     id="logo-sidebar"
-                    className="fixed top-0 left-0 z-40 w-64 h-screen pt-10 transition-transform -translate-x-full  border-r border-blue-600 sm:translate-x-0 bg-blue-600"
+                    className="fixed top-0 left-0 z-40 w-64 h-screen pt-4 transition-transform -translate-x-full  border-r border-blue-600 sm:translate-x-0 bg-blue-600"
                     aria-label="Sidebar"
                 >
                     <div className="h-full px-3 pb-4 overflow-y-auto">
+                    <h1 className="mx-3 mb-4 text-white font-bold">Aquacare</h1>
+                        
                         <ul className="space-y-2 font-medium">
                             <li>
                                 <a
