@@ -16,8 +16,10 @@ const AdminLayout = ({ children, header }) => {
                     aria-label="Sidebar"
                 >
                     <div className="h-min-screen px-3 pb-4 overflow-y-auto">
-                    <h1 className="mx-3 mb-4 text-white font-bold">Aquacare</h1>
-                        
+                        <h1 className="mx-3 mb-4 text-white font-bold text-4xl ">
+                            Aquacare
+                        </h1>
+
                         <ul className="space-y-2 font-medium">
                             <li>
                                 <a
@@ -34,7 +36,9 @@ const AdminLayout = ({ children, header }) => {
                                         <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
                                         <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                                     </svg>
-                                    <span className="ms-3 text-slate-100 hover:text-gray-900">Dashboard</span>
+                                    <span className="ms-3 text-slate-100 hover:text-gray-900">
+                                        Dashboard
+                                    </span>
                                 </a>
                             </li>
                             <li>
@@ -97,7 +101,9 @@ const AdminLayout = ({ children, header }) => {
                     aria-label="Sidebar"
                 >
                     <div className="h-min-screen">
-                        <h1 className="mx-3 mb-4 text-white font-bold">Aquacare</h1>
+                        <h1 className="mx-3 mb-4 text-white text-4xl font-bold">
+                            Aquacare
+                        </h1>
                         <ul className="space-y-2 font-medium">
                             <li>
                                 <a
@@ -218,8 +224,10 @@ const AdminLayout = ({ children, header }) => {
                     aria-label="Sidebar"
                 >
                     <div className="h-full px-3 pb-4 overflow-y-auto">
-                    <h1 className="mx-3 mb-4 text-white font-bold">Aquacare</h1>
-                        
+                        <h1 className="mx-3 mb-4 text-white font-bold text-4xl ">
+                            Aquacare
+                        </h1>
+
                         <ul className="space-y-2 font-medium">
                             <li>
                                 <a
@@ -236,7 +244,9 @@ const AdminLayout = ({ children, header }) => {
                                         <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
                                         <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                                     </svg>
-                                    <span className="ms-3 text-slate-100 hover:text-gray-900">Dashboard</span>
+                                    <span className="ms-3 text-slate-100 hover:text-gray-900">
+                                        Dashboard
+                                    </span>
                                 </a>
                             </li>
 
@@ -391,13 +401,7 @@ const AdminLayout = ({ children, header }) => {
                         </div>
                     </div>
                 </nav>
-                {/* {header && (
-                    <header className="bg-white shadow">
-                        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                            {header}
-                        </div>
-                    </header>
-                )} */}
+
                 <main className="">
                     <div className="p-4 sm:ml-64 bg-grey">{children}</div>
                 </main>
