@@ -1,9 +1,11 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import MapComponent from "./MapComponent";
 
-import {Head, Link, router, useForm, usePage} from "@inertiajs/react";
-import {Flowbite} from "flowbite-react";
+import {router, useForm, usePage} from "@inertiajs/react";
 import Popup from "reactjs-popup";
+import {MapContainer, TileLayer} from "react-leaflet";
+import 'leaflet/dist/leaflet.css';
 
 export default function Report({auth}) {
     const role = auth.user.roles.name;
@@ -16,6 +18,8 @@ export default function Report({auth}) {
     ];
     const {flash, errors, reports} = usePage().props;
     const [selectedStatus, setSelectedStatus] = useState("Pilih Status");
+    const [lng, setLng] = useState(0.0)
+    const [lat, setLat] = useState(0.0)
     const {data, setData, reset, put} = useForm({
         rasa: "Tawar",
         suhu: "Biasa",
@@ -25,7 +29,7 @@ export default function Report({auth}) {
         keasaman: "Tidak Asam",
         detail: "",
         user_id: "",
-        status: "",
+        status: ""
     });
 
     const rasa = ["Tawar", "Asin", "Manis", "Pahit", "Asam"]
@@ -35,10 +39,14 @@ export default function Report({auth}) {
     const keasaman = ["Tidak Asam", "Sedikit Asam", "Sangat Asam"]
 
     let popup = null;
+
+    useEffect(() => {
+        getLocationPermission()
+    }, []);
     const storeReport = (e) => {
-        console.log(data)
         e.preventDefault();
-        router.post("/report", data, {
+        const newData = { ...data, long: lng,lat: lat };
+        router.post("/report", newData, {
             onSuccess: () => {
                 reset();
             },
@@ -56,6 +64,43 @@ export default function Report({auth}) {
             },
         });
     };
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setLng(position.coords.longitude)
+                    setLat(position.coords.latitude)
+                    console.log("Latitude is :", position.coords.latitude)
+                    console.log("Longitude is :", position.coords.longitude)
+                },
+                (error) => {
+                    console.error("Error getting geolocation: ", error);
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0,
+                }
+            );
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+        }
+    }, []);
+    const getLocationPermission = () => {
+        if (navigator.geolocation) {
+            navigator.permissions.query({name: 'geolocation'}).then(permissionStatus => {
+                if (permissionStatus.state === 'denied') {
+                    alert('Please allow location access.');
+                    window.location.href = "app-settings:location";
+                } else {
+                    navigator.geolocation.getCurrentPosition(success, error);
+                }
+            });
+        } else {
+            alert('Geolocation is not supported in your browser.');
+        }
+    }
 
     if (role === "user") {
         popup = (
@@ -204,10 +249,8 @@ export default function Report({auth}) {
                                 Detail Air
                             </label>
                             <textarea
-                                // id="default-search"
                                 className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
                                 placeholder="enter ..."
-                                // required
                                 onChange={(e) => {
                                     setData("detail", e.target.value)
                                 }}
@@ -248,6 +291,20 @@ export default function Report({auth}) {
                         <h3 className="font-semibold text-base text-gray-900">
                             Daftar Laporan
                         </h3>
+                        <div
+                            className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
+                            <MapContainer
+                                center={{lat: -7.31110, lng: 112.72923}}
+                                zoom={11}
+                                style={{height: "500px", width: "100%"}}
+                            >
+                                <TileLayer
+                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                                <MapComponent/>
+                            </MapContainer>
+                        </div>
                         {flash.message && (
                             <div
                                 className="flex items-center p-4 mb-4 text-sm text-midnight rounded-lg  dark:text-green-500"
@@ -279,7 +336,6 @@ export default function Report({auth}) {
                     </div>
                 </div>
             </div>
-            <div></div>
             <div className="overflow-x-auto  ">
                 <table className="table">
                     <thead className="bg-gray-950 rounded-md text-white text-center">
