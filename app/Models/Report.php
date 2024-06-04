@@ -20,6 +20,8 @@ class Report extends Model
         'detail',
         'status',
         'user_id',
+        'long',
+        'lat',
     ];
 
     public function feedback(): HasMany
