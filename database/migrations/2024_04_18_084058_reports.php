@@ -20,6 +20,8 @@ return new class extends Migration {
             $table->string('keasaman');
             $table->text('detail');
             $table->enum('status', ['pending', 'approved', 'rejected', 'completed', 'onprogress']);
+            $table->double('long');
+            $table->double('lat');
             $table->foreignIdFor(\App\Models\User::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
