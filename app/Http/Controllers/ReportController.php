@@ -44,7 +44,9 @@ class ReportController extends Controller
             'bau' => 'required',
             'warna' => 'required',
             'keasaman' => 'required',
-            'detail' => 'required'
+            'detail' => 'required',
+            'long' => 'required',
+            'lat' => 'required'
         ]);
 
         $user_id = auth()->user()->id;
@@ -97,7 +99,9 @@ class ReportController extends Controller
                 'keasaman' => $data['keasaman'],
                 'detail' => $data['detail'],
                 'status' => $data['status'] ?? 'pending',
-                'user_id' => $data['user_id']
+                'user_id' => $data['user_id'],
+                'long' => $data['long'],
+                'lat' => $data['lat']
             ]);
         } catch (\Exception $e) {
             throw new $e->getMessage();
