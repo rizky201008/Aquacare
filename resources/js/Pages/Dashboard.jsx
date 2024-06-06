@@ -1,20 +1,47 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import { Head, usePage, Link } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import "../../css/sb-admin-2.css";
-import MapComponent from "./MapComponent";
+import MarkerKu from "./MapComponent";
 import { MapContainer, TileLayer } from "react-leaflet";
+import MapFunction from "@/functions/MapFunction";
+import { useEffect, useState } from "react";
 
 export default function Dashboard({ auth }) {
-    const { reportsCount, approvedReportsCount, pendingReportsCount } =
+    const { reportsCount, approvedReportsCount, pendingReportsCount, reports } =
         usePage().props;
     let user = auth.user;
     let roleContent = null;
+    const [position, setPosition] = useState([0.0, 0.0]);
+    const mapFunction = new MapFunction();
+
+    useEffect(() => {
+        mapFunction
+            .getLocationPermission()
+            .then((permissionGranted) => {
+                if (permissionGranted) {
+                    mapFunction
+                        .getCurrentLngLat()
+                        .then((lnglat) => {
+                            setPosition([lnglat.lat, lnglat.lng]);
+                        })
+                        .catch((error) => {
+                            console.error(
+                                "Error getting current location:",
+                                error
+                            );
+                        });
+                }
+            })
+            .catch((error) => {
+                console.error("Error getting location permission:", error);
+            });
+    }, []);
 
     switch (user.roles.name) {
         case "admin":
             roleContent = (
                 <>
-                    <div className="h-min-screen">
+                    <div className="h-min-screen px-3">
                         <div className="stats shadow w-full bg-white">
                             <div className="stat">
                                 <div className="stat-figure text-primary">
@@ -102,15 +129,25 @@ export default function Dashboard({ auth }) {
                         <div className="w-full mb-12 xl:mb-0 px-4 mx-auto mt-24">
                             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
                                 <MapContainer
-                                    center={{ lat: -7.3111, lng: 112.72923 }}
-                                    zoom={19}
+                                    center={[112.7190, -7.2678]}
+                                    zoom={7}
+                                    scrollWheelZoom={true}
                                     style={{ height: "500px", width: "100%" }}
                                 >
                                     <TileLayer
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                     />
-                                    <MapComponent />
+                                    {reports.map((report) => (
+                                        <MarkerKu
+                                            key={report.id}
+                                            position={{
+                                                lat: report.lat,
+                                                lng: report.long,
+                                            }}
+                                            popup={`#${report.id} by ${report.user.name}`}
+                                        />
+                                    ))}
                                 </MapContainer>
                             </div>
                         </div>
