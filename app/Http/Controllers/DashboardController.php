@@ -13,12 +13,15 @@ class DashboardController extends Controller
         $reportsCount = Report::count();
         $approvedReportsCount = Report::where('status', 'approved')->count();
         $pendingReportsCount = Report::where('status', 'pending')->count();
-        return Inertia::render('Dashboard',[
+        $reports = Report::with('user')->where('status','approved')->get();
+        return Inertia::render('Dashboard', [
             'reportsCount' => $reportsCount,
             'approvedReportsCount' => $approvedReportsCount,
             'pendingReportsCount' => $pendingReportsCount,
+            'reports' => $reports
         ]);
     }
+
     public function count()
     {
         $userCount = User::count();
@@ -27,6 +30,7 @@ class DashboardController extends Controller
 
         ]);
     }
+
     public function userlist()
     {
         return Inertia::render('User', ['users' => User::get()]);
