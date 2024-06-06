@@ -75,11 +75,7 @@ const Homepage = () => {
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-black">
                         {blogs.map((blog, index) => (
                             <div key={index}>
-                                <BlogItem blogItem={blog} buttons={
-                                    <button className="btn btn-primary">
-                                        Detail
-                                    </button>
-                                }/>
+                                <BlogItem blogItem={blog} />
                             </div>
                         ))}
                     </div>
