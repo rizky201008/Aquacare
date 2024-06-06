@@ -3,6 +3,7 @@ import React from "react";
 import { RiAdminFill } from "react-icons/ri";
 import Dropdown from "@/Components/Dropdown";
 
+
 const AdminLayout = ({ children, header }) => {
     const { component } = usePage();
     const { auth } = usePage().props;
@@ -403,7 +404,7 @@ const AdminLayout = ({ children, header }) => {
                 </nav>
 
                 <main className="">
-                    <div className="p-4 sm:ml-64 bg-grey">{children}</div>
+                    <div className=" sm:ml-64 bg-grey">{children}</div>
                 </main>
 
                 <div className="ml-64">
