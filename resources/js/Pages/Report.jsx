@@ -1,13 +1,12 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import React, {useEffect, useState} from "react";
-import MapComponent from "./MapComponent";
+import React, { useEffect, useState } from "react";
 
-import {router, useForm, usePage} from "@inertiajs/react";
+import { router, useForm, usePage } from "@inertiajs/react";
 import Popup from "reactjs-popup";
-import {MapContainer, TileLayer} from "react-leaflet";
-import 'leaflet/dist/leaflet.css';
+import "leaflet/dist/leaflet.css";
+import MapFunction from "@/functions/MapFunction";
 
-export default function Report({auth}) {
+export default function Report({ auth }) {
     const role = auth.user.roles.name;
     const status = [
         "pending",
@@ -16,11 +15,11 @@ export default function Report({auth}) {
         "completed",
         "onprogress",
     ];
-    const {flash, errors, reports} = usePage().props;
+    const { flash, errors, reports } = usePage().props;
     const [selectedStatus, setSelectedStatus] = useState("Pilih Status");
-    const [lng, setLng] = useState(0.0)
-    const [lat, setLat] = useState(0.0)
-    const {data, setData, reset, put} = useForm({
+    const [lng, setLng] = useState(0.0);
+    const [lat, setLat] = useState(0.0);
+    const { data, setData, reset, put } = useForm({
         rasa: "Tawar",
         suhu: "Biasa",
         kekentalan: "Encer",
@@ -29,23 +28,21 @@ export default function Report({auth}) {
         keasaman: "Tidak Asam",
         detail: "",
         user_id: "",
-        status: ""
+        status: "",
     });
 
-    const rasa = ["Tawar", "Asin", "Manis", "Pahit", "Asam"]
-    const suhu = ["Dingin", 'Biasa', "Hangat", "Panas"]
-    const kekentalan = ["Encer", "Kental", "Sangat Kental"]
-    const bau = ["Tidak Bau", "Sedikit Bau", "Sangat Bau"]
-    const keasaman = ["Tidak Asam", "Sedikit Asam", "Sangat Asam"]
+    const rasa = ["Tawar", "Asin", "Manis", "Pahit", "Asam"];
+    const suhu = ["Dingin", "Biasa", "Hangat", "Panas"];
+    const kekentalan = ["Encer", "Kental", "Sangat Kental"];
+    const bau = ["Tidak Bau", "Sedikit Bau", "Sangat Bau"];
+    const keasaman = ["Tidak Asam", "Sedikit Asam", "Sangat Asam"];
+    const mapfunction = new MapFunction();
 
     let popup = null;
 
-    useEffect(() => {
-        getLocationPermission()
-    }, []);
     const storeReport = (e) => {
         e.preventDefault();
-        const newData = { ...data, long: lng,lat: lat };
+        const newData = { ...data, long: lng, lat: lat };
         router.post("/report", newData, {
             onSuccess: () => {
                 reset();
@@ -66,54 +63,34 @@ export default function Report({auth}) {
     };
 
     useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setLng(position.coords.longitude)
-                    setLat(position.coords.latitude)
-                    console.log("Latitude is :", position.coords.latitude)
-                    console.log("Longitude is :", position.coords.longitude)
-                },
-                (error) => {
-                    console.error("Error getting geolocation: ", error);
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 5000,
-                    maximumAge: 0,
-                }
-            );
-        } else {
-            console.error("Geolocation is not supported by this browser.");
-        }
+        mapfunction.getLocationPermission().then((permissionGranted) => {
+            if (permissionGranted) {
+                mapfunction.getCurrentLngLat().then((lnglat) => {
+                    setLng(lnglat.lng);
+                    setLat(lnglat.lat);
+                }).catch((error) => {
+                    console.error("Error getting current location:", error);
+                });
+            }
+        }).catch((error) => {
+            console.error("Error getting location permission:", error);
+        });;
     }, []);
-    const getLocationPermission = () => {
-        if (navigator.geolocation) {
-            navigator.permissions.query({name: 'geolocation'}).then(permissionStatus => {
-                if (permissionStatus.state === 'denied') {
-                    alert('Please allow location access.');
-                    window.location.href = "app-settings:location";
-                } else {
-                    navigator.geolocation.getCurrentPosition(success, error);
-                }
-            });
-        } else {
-            alert('Geolocation is not supported in your browser.');
-        }
-    }
 
     if (role === "user") {
         popup = (
             <Popup
                 modal
                 trigger={
-                    <button
-                        className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ms-10 ease-linear transition-all duration-150">
+                    <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ms-10 ease-linear transition-all duration-150">
                         Create
                     </button>
                 }
             >
-                <form className="px-5 py-4 bg-slate-400 " onSubmit={storeReport}>
+                <form
+                    className="px-5 py-4 bg-slate-400 "
+                    onSubmit={storeReport}
+                >
                     <div className="grid gap-4 mb-4 grid-cols-2">
                         <div className="col-span-2">
                             <label
@@ -124,13 +101,15 @@ export default function Report({auth}) {
                             </label>
                             <select
                                 className="select select-bordered bg-none text-white w-full max-w-xs"
-                                onSelect={(e) => setData("rasa", e.target.value)}
-                            >
-                                {
-                                    rasa.map((rasa, index) => (
-                                        <option key={index} value={rasa}>{rasa}</option>
-                                    ))
+                                onSelect={(e) =>
+                                    setData("rasa", e.target.value)
                                 }
+                            >
+                                {rasa.map((rasa, index) => (
+                                    <option key={index} value={rasa}>
+                                        {rasa}
+                                    </option>
+                                ))}
                             </select>
                             <p className="text-red-500 text-sm mt-2">
                                 {errors.rasa}
@@ -145,13 +124,15 @@ export default function Report({auth}) {
                             </label>
                             <select
                                 className="select select-bordered bg-none text-white w-full max-w-xs"
-                                onSelect={(e) => setData("suhu", e.target.value)}
-                            >
-                                {
-                                    suhu.map((suhu, index) => (
-                                        <option key={index} value={suhu}>{suhu}</option>
-                                    ))
+                                onSelect={(e) =>
+                                    setData("suhu", e.target.value)
                                 }
+                            >
+                                {suhu.map((suhu, index) => (
+                                    <option key={index} value={suhu}>
+                                        {suhu}
+                                    </option>
+                                ))}
                             </select>
                             <p className="text-red-500 text-sm mt-2">
                                 {errors.suhu}
@@ -166,13 +147,15 @@ export default function Report({auth}) {
                             </label>
                             <select
                                 className="select select-bordered bg-none text-white w-full max-w-xs"
-                                onSelect={(e) => setData("kekentalan", e.target.value)}
-                            >
-                                {
-                                    kekentalan.map((kekentalan, index) => (
-                                        <option key={index} value={kekentalan}>{kekentalan}</option>
-                                    ))
+                                onSelect={(e) =>
+                                    setData("kekentalan", e.target.value)
                                 }
+                            >
+                                {kekentalan.map((kekentalan, index) => (
+                                    <option key={index} value={kekentalan}>
+                                        {kekentalan}
+                                    </option>
+                                ))}
                             </select>
                             <p className="text-red-500 text-sm mt-2">
                                 {errors.kekentalan}
@@ -187,11 +170,19 @@ export default function Report({auth}) {
                             </label>
                             <select
                                 className="select select-bordered bg-none text-white w-full max-w-xs"
-                                onSelect={(e) => setData("warna", e.target.value)}
+                                onSelect={(e) =>
+                                    setData("warna", e.target.value)
+                                }
                             >
-                                <option value="Tidak Berwarna">Tidak Berwarna</option>
-                                <option value="Sedikit Keruh">Sedikit Keruh</option>
-                                <option value="Sangat Keruh">Sangat Keruh</option>
+                                <option value="Tidak Berwarna">
+                                    Tidak Berwarna
+                                </option>
+                                <option value="Sedikit Keruh">
+                                    Sedikit Keruh
+                                </option>
+                                <option value="Sangat Keruh">
+                                    Sangat Keruh
+                                </option>
                             </select>
                             <p className="text-red-500 text-sm mt-2">
                                 {errors.warna}
@@ -208,11 +199,11 @@ export default function Report({auth}) {
                                 className="select select-bordered bg-none text-white w-full max-w-xs"
                                 onSelect={(e) => setData("bau", e.target.value)}
                             >
-                                {
-                                    bau.map((bau, index) => (
-                                        <option key={index} value={bau}>{bau}</option>
-                                    ))
-                                }
+                                {bau.map((bau, index) => (
+                                    <option key={index} value={bau}>
+                                        {bau}
+                                    </option>
+                                ))}
                             </select>
                             <p className="text-red-500 text-sm mt-2">
                                 {errors.bau}
@@ -228,14 +219,14 @@ export default function Report({auth}) {
                             <select
                                 className="select select-bordered bg-none text-white w-full max-w-xs"
                                 onSelect={(e) => {
-                                    setData("keasaman", e.target.value)
+                                    setData("keasaman", e.target.value);
                                 }}
                             >
-                                {
-                                    keasaman.map((keasaman, index) => (
-                                        <option key={index} value={keasaman}>{keasaman}</option>
-                                    ))
-                                }
+                                {keasaman.map((keasaman, index) => (
+                                    <option key={index} value={keasaman}>
+                                        {keasaman}
+                                    </option>
+                                ))}
                             </select>
                             <p className="text-red-500 text-sm mt-2">
                                 {errors.keasaman}
@@ -252,7 +243,7 @@ export default function Report({auth}) {
                                 className="bg-sea border text-midnight border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 "
                                 placeholder="enter ..."
                                 onChange={(e) => {
-                                    setData("detail", e.target.value)
+                                    setData("detail", e.target.value);
                                 }}
                                 value={data.detail}
                             />
@@ -291,20 +282,6 @@ export default function Report({auth}) {
                         <h3 className="font-semibold text-base text-gray-900">
                             Daftar Laporan
                         </h3>
-                        <div
-                            className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
-                            <MapContainer
-                                center={{lat: -7.31110, lng: 112.72923}}
-                                zoom={11}
-                                style={{height: "500px", width: "100%"}}
-                            >
-                                <TileLayer
-                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                />
-                                <MapComponent/>
-                            </MapContainer>
-                        </div>
                         {flash.message && (
                             <div
                                 className="flex items-center p-4 mb-4 text-sm text-midnight rounded-lg  dark:text-green-500"
@@ -317,8 +294,7 @@ export default function Report({auth}) {
                                     fill="currentColor"
                                     viewBox="0 0 20 20"
                                 >
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                                 </svg>
                                 <span className="sr-only">Info</span>
                                 <div>
@@ -336,123 +312,122 @@ export default function Report({auth}) {
                     </div>
                 </div>
             </div>
-            <div className="overflow-x-auto  ">
+            <div className="overflow-x-auto px-3">
                 <table className="table">
                     <thead className="bg-gray-950 rounded-md text-white text-center">
-                    <tr>
-                        <th className=" ">Rasa</th>
-                        <th className=" ">Suhu</th>
-                        <th className=" ">Kekentalan</th>
-                        <th className=" ">Warna</th>
-                        <th className=" ">Bau</th>
-                        <th className=" ">Keasaman</th>
-                        <th className=" ">Detail Air</th>
-                        <th className=" ">Status</th>
+                        <tr>
+                            <th className=" ">Rasa</th>
+                            <th className=" ">Suhu</th>
+                            <th className=" ">Kekentalan</th>
+                            <th className=" ">Warna</th>
+                            <th className=" ">Bau</th>
+                            <th className=" ">Keasaman</th>
+                            <th className=" ">Detail Air</th>
+                            <th className=" ">Status</th>
 
-                        <th className=" "/>
-                    </tr>
+                            <th className=" " />
+                        </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-                    {reports.map((report, i) => {
-                        return (
-                            <tr
-                                className="bg-gray-50 text-gray-800"
-                                key={i}
-                            >
-                                <td className="">{report.rasa}</td>
-                                <td className="">{report.suhu}</td>
-                                <td className="">{report.kekentalan}</td>
-                                <td className="">{report.warna}</td>
-                                <td className="">{report.bau}</td>
-                                <td className="">{report.keasaman}</td>
-                                <td className="">{report.detail}</td>
+                        {reports.map((report, i) => {
+                            return (
+                                <tr
+                                    className="bg-gray-50 text-gray-800"
+                                    key={i}
+                                >
+                                    <td className="">{report.rasa}</td>
+                                    <td className="">{report.suhu}</td>
+                                    <td className="">{report.kekentalan}</td>
+                                    <td className="">{report.warna}</td>
+                                    <td className="">{report.bau}</td>
+                                    <td className="">{report.keasaman}</td>
+                                    <td className="">{report.detail}</td>
 
-                                <td className="badge  badge-outline my-16">
-                                    {report.status}
-                                </td>
+                                    <td className="badge  badge-outline my-16">
+                                        {report.status}
+                                    </td>
 
-                                <td className="px-6 py-4">
-                                    <div className="flex justify-end gap-4">
-                                        {role === "admin" && (
-                                            <Popup
-                                                modal
-                                                trigger={
-                                                    <button
-                                                        className="bg-amber-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                                                        Edit
-                                                    </button>
-                                                }
-                                            >
-                                                <form
-                                                    className="p-4 md:p-5 bg-slate-400 "
-                                                    onSubmit={(e) =>
-                                                        updateReport(
-                                                            e,
-                                                            report.id
-                                                        )
+                                    <td className="px-6 py-4">
+                                        <div className="flex justify-end gap-4">
+                                            {role === "admin" && (
+                                                <Popup
+                                                    modal
+                                                    trigger={
+                                                        <button className="bg-amber-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
+                                                            Edit
+                                                        </button>
                                                     }
                                                 >
-                                                    <select
-                                                        onChange={(e) => {
-                                                            updateStatus(
-                                                                e.target
-                                                                    .value
-                                                            );
-                                                            setData(
-                                                                "status",
-                                                                e.target
-                                                                    .value
-                                                            );
-                                                        }}
-                                                        className="select w-full max-w-xs"
+                                                    <form
+                                                        className="p-4 md:p-5 bg-slate-400 "
+                                                        onSubmit={(e) =>
+                                                            updateReport(
+                                                                e,
+                                                                report.id
+                                                            )
+                                                        }
                                                     >
-                                                        <option>
-                                                            {selectedStatus}
-                                                        </option>
-                                                        {status &&
-                                                            status.map(
-                                                                (
-                                                                    status,
-                                                                    i
-                                                                ) => {
-                                                                    return (
-                                                                        <option
-                                                                            key={
-                                                                                i
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                status
-                                                                            }
-                                                                        </option>
-                                                                    );
-                                                                }
-                                                            )}
-                                                    </select>
-                                                    <button
-                                                        className="btn w-full"
-                                                        type={"submit"}
-                                                    >
-                                                        Button
-                                                    </button>
-                                                </form>
-                                            </Popup>
-                                        )}
-                                    </div>
-                                    <button
-                                        onClick={() =>
-                                            router.get(
-                                                "/report/" + report.id
-                                            )
-                                        }
-                                        className="btn btn-secondary"
-                                    >
-                                        Lihat Detail
-                                    </button>
-                                </td>
-                            </tr>
-                        );
-                    })}
+                                                        <select
+                                                            onChange={(e) => {
+                                                                updateStatus(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                                setData(
+                                                                    "status",
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
+                                                            className="select w-full max-w-xs"
+                                                        >
+                                                            <option>
+                                                                {selectedStatus}
+                                                            </option>
+                                                            {status &&
+                                                                status.map(
+                                                                    (
+                                                                        status,
+                                                                        i
+                                                                    ) => {
+                                                                        return (
+                                                                            <option
+                                                                                key={
+                                                                                    i
+                                                                                }
+                                                                            >
+                                                                                {
+                                                                                    status
+                                                                                }
+                                                                            </option>
+                                                                        );
+                                                                    }
+                                                                )}
+                                                        </select>
+                                                        <button
+                                                            className="btn w-full"
+                                                            type={"submit"}
+                                                        >
+                                                            Button
+                                                        </button>
+                                                    </form>
+                                                </Popup>
+                                            )}
+                                        </div>
+                                        <button
+                                            onClick={() =>
+                                                router.get(
+                                                    "/report/" + report.id
+                                                )
+                                            }
+                                            className="btn btn-secondary"
+                                        >
+                                            Lihat Detail
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
