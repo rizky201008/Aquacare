@@ -57,7 +57,7 @@ class BlogController extends Controller
 
     private function createSlug(string $title): string
     {
-        return Str::slug($title);
+        return Str::slug($title . '-' . Str::random(5));
     }
 
     private function saveBlog(array $data)

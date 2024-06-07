@@ -1,6 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
 import React from "react";
-import { RiAdminFill } from "react-icons/ri";
 import Dropdown from "@/Components/Dropdown";
 
 
@@ -404,7 +403,7 @@ const AdminLayout = ({ children, header }) => {
                 </nav>
 
                 <main className="">
-                    <div className=" sm:ml-64 bg-grey">{children}</div>
+                    <div className="sm:ml-64  px-3 bg-grey">{children}</div>
                 </main>
 
                 <div className="ml-64">
