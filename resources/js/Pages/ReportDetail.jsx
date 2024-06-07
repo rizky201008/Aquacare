@@ -1,13 +1,11 @@
-import { router, useForm, usePage } from "@inertiajs/react";
+import {router, useForm, usePage} from "@inertiajs/react";
 import AdminLayout from "@/Layouts/AdminLayout.jsx";
-import { Card, Table } from "flowbite-react";
-import { useEffect } from "react";
 
-export default function ReportDetail({ auth }) {
+export default function ReportDetail({auth}) {
     const role = auth.user.roles.name;
-    const { report } = usePage().props;
-    const { flash, errors, feedbacks } = usePage().props;
-    const { data, setData, reset, put } = useForm({
+    const {report} = usePage().props;
+    const {flash, errors, feedbacks} = usePage().props;
+    const {data, setData, reset, put} = useForm({
         report_id: null,
         message: "",
     });
@@ -37,7 +35,7 @@ export default function ReportDetail({ auth }) {
 
     return (
         <AdminLayout>
-            <div className="card w-full bg-white text-primary-content mb-3">
+            <div className="card w-full bg-white  mb-3">
                 <div className="card-body">
                     <h2 className="card-title">Laporan #{report.id}</h2>
                     <p className="badge badge-neutral py-3 px-4">
@@ -60,59 +58,59 @@ export default function ReportDetail({ auth }) {
                     <table className="table">
                         {/* head */}
                         <thead>
-                            <tr>
-                                <th className="text-black font-bold">#</th>
-                                <th className="text-black font-bold uppercase ">
-                                    Ciri-ciri
-                                </th>
-                                <th className="text-black font-bold uppercase ">
-                                    Detail
-                                </th>
-                            </tr>
+                        <tr>
+                            <th className="text-black font-bold">#</th>
+                            <th className="text-black font-bold uppercase ">
+                                Ciri-ciri
+                            </th>
+                            <th className="text-black font-bold uppercase ">
+                                Detail
+                            </th>
+                        </tr>
                         </thead>
                         <tbody className="font-extralight">
-                            {/* row 1 */}
-                            <tr>
-                                <th>1</th>
-                                <th>Rasa</th>
-                                <td>{report.rasa}</td>
-                            </tr>
-                            {/* row 2 */}
-                            <tr>
-                                <th>2</th>
-                                <td>Suhu</td>
-                                <td>{report.suhu}</td>
-                            </tr>
-                            {/* row 3 */}
-                            <tr>
-                                <th>3</th>
-                                <td>Kekentalan</td>
-                                <td>{report.kekentalan}</td>
-                            </tr>
-                            {/* row 4 */}
-                            <tr>
-                                <th>4</th>
-                                <td>Warna</td>
-                                <td>{report.warna}</td>
-                            </tr>
-                            {/* row 5 */}
-                            <tr>
-                                <th>5</th>
-                                <td>Bau</td>
-                                <td>{report.bau}</td>
-                            </tr>
-                            {/* row 6 */}
-                            <tr>
-                                <th>6</th>
-                                <td>Keasaman</td>
-                                <td>{report.keasaman}</td>
-                            </tr>
+                        {/* row 1 */}
+                        <tr>
+                            <th>1</th>
+                            <th>Rasa</th>
+                            <td>{report.rasa}</td>
+                        </tr>
+                        {/* row 2 */}
+                        <tr>
+                            <th>2</th>
+                            <td>Suhu</td>
+                            <td>{report.suhu}</td>
+                        </tr>
+                        {/* row 3 */}
+                        <tr>
+                            <th>3</th>
+                            <td>Kekentalan</td>
+                            <td>{report.kekentalan}</td>
+                        </tr>
+                        {/* row 4 */}
+                        <tr>
+                            <th>4</th>
+                            <td>Warna</td>
+                            <td>{report.warna}</td>
+                        </tr>
+                        {/* row 5 */}
+                        <tr>
+                            <th>5</th>
+                            <td>Bau</td>
+                            <td>{report.bau}</td>
+                        </tr>
+                        {/* row 6 */}
+                        <tr>
+                            <th>6</th>
+                            <td>Keasaman</td>
+                            <td>{report.keasaman}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div className="card w-full bg-white text-primary-content">
+            <div className="card w-full bg-white">
                 <div className="card-body">
                     <h2 className="card-title">Feedback</h2>
                     {role === "petugas" && (
@@ -177,7 +175,8 @@ export default function ReportDetail({ auth }) {
                         fill="currentColor"
                         viewBox="0 0 20 20"
                     >
-                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        <path
+                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
                     </svg>
                     <span className="sr-only">Info</span>
                     <div>
