@@ -37,4 +37,7 @@ export default {
         addUtilities(newUtilities, ['responsive', 'hover']);
     },],
     darkMode: 'false',
+    daisyui: {
+        themes: ["light"],
+    },
 };
