@@ -41,7 +41,7 @@ export default function Dashboard({ auth }) {
         case "admin":
             roleContent = (
                 <>
-                    <div className="h-min-screen px-3">
+                    <div className="h-min-screen">
                         <div className="stats shadow w-full bg-white">
                             <div className="stat">
                                 <div className="stat-figure text-primary">
@@ -126,7 +126,7 @@ export default function Dashboard({ auth }) {
                     </div>
 
                     <section className="py-1 bg-blueGray-50">
-                        <div className="w-full mb-12 xl:mb-0 px-4 mx-auto mt-24">
+                        <div className="w-full mb-12 xl:mb-0 mx-auto mt-24">
                             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
                                 <MapContainer
                                     center={[-6.17525, 106.82705]}
