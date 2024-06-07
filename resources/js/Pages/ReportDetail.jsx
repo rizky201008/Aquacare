@@ -49,61 +49,44 @@ export default function ReportDetail({auth}) {
                     </p>
                     <div className="divider"></div>
                     <h3 className="text-xl font-serif font-semibold">
-                        Detail Laporan
+                        Catatan Laporan
                     </h3>
                     <p className="text-md">{report.detail}</p>
                     <div className="divider"></div>
                 </div>
-                <div className="overflow-x-auto">
-                    <table className="table">
+                <div className="overflow-x-auto flex justify-center">
+                    <table className="table w-1/2 bg-warning">
                         {/* head */}
-                        <thead>
-                        <tr>
-                            <th className="text-black font-bold">#</th>
-                            <th className="text-black font-bold uppercase ">
-                                Ciri-ciri
-                            </th>
-                            <th className="text-black font-bold uppercase ">
-                                Detail
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody className="font-extralight">
+                        <tbody className="text-black">
                         {/* row 1 */}
                         <tr>
-                            <th>1</th>
-                            <th>Rasa</th>
-                            <td>{report.rasa}</td>
+                            <td className='font-bold'>Rasa</td>
+                            <td>: {report.rasa}</td>
                         </tr>
                         {/* row 2 */}
                         <tr>
-                            <th>2</th>
-                            <td>Suhu</td>
-                            <td>{report.suhu}</td>
+                            <td className='font-bold'>Suhu</td>
+                            <td>: {report.suhu}</td>
                         </tr>
                         {/* row 3 */}
                         <tr>
-                            <th>3</th>
-                            <td>Kekentalan</td>
-                            <td>{report.kekentalan}</td>
+                            <td className='font-bold'>Kekentalan</td>
+                            <td>: {report.kekentalan}</td>
                         </tr>
                         {/* row 4 */}
                         <tr>
-                            <th>4</th>
-                            <td>Warna</td>
-                            <td>{report.warna}</td>
+                            <td className='font-bold'>Warna</td>
+                            <td>: {report.warna}</td>
                         </tr>
                         {/* row 5 */}
                         <tr>
-                            <th>5</th>
-                            <td>Bau</td>
-                            <td>{report.bau}</td>
+                            <td className='font-bold'>Bau</td>
+                            <td>: {report.bau}</td>
                         </tr>
                         {/* row 6 */}
                         <tr>
-                            <th>6</th>
-                            <td>Keasaman</td>
-                            <td>{report.keasaman}</td>
+                            <td className='font-bold'>Keasaman</td>
+                            <td>: {report.keasaman}</td>
                         </tr>
                         </tbody>
                     </table>
