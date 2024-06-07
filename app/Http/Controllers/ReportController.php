@@ -30,7 +30,9 @@ class ReportController extends Controller
             'reports' => $reports
         ]);
     }
-    public function blogList(){
+
+    public function blogList()
+    {
         $blogs = Blog::all();
         return Inertia::render('Homepage', ['blogs' => $blogs]);
     }
@@ -111,9 +113,7 @@ class ReportController extends Controller
     private function updateReport($data)
     {
         try {
-            Report::find($data['id'])->update([
-                'status' => $data['status'] ?? 'pending'
-            ]);
+            Report::find($data['id'])->update($data);
         } catch (\Exception $e) {
             throw new $e->getMessage();
         }
