@@ -129,8 +129,8 @@ export default function Dashboard({ auth }) {
                         <div className="w-full mb-12 xl:mb-0 px-4 mx-auto mt-24">
                             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
                                 <MapContainer
-                                    center={[112.7190, -7.2678]}
-                                    zoom={7}
+                                    center={[-6.17525, 106.82705]}
+                                    zoom={4}
                                     scrollWheelZoom={true}
                                     style={{ height: "500px", width: "100%" }}
                                 >
