@@ -403,7 +403,7 @@ const AdminLayout = ({ children, header }) => {
                 </nav>
 
                 <main className="">
-                    <div className="sm:ml-64  px-3 bg-grey">{children}</div>
+                    <div className="sm:ml-64 text-black min-h-screen p-3" data-theme="light">{children}</div>
                 </main>
 
                 <div className="ml-64">

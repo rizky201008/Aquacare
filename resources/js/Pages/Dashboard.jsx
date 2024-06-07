@@ -1,41 +1,14 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import { Head, usePage } from "@inertiajs/react";
 import "../../css/sb-admin-2.css";
-import MarkerKu from "./MapComponent";
+import MarkerKu from "../Components/MarkerKu.jsx";
 import { MapContainer, TileLayer } from "react-leaflet";
-import MapFunction from "@/functions/MapFunction";
-import { useEffect, useState } from "react";
 
 export default function Dashboard({ auth }) {
     const { reportsCount, approvedReportsCount, pendingReportsCount, reports } =
         usePage().props;
     let user = auth.user;
-    let roleContent = null;
-    const [position, setPosition] = useState([0.0, 0.0]);
-    const mapFunction = new MapFunction();
-
-    useEffect(() => {
-        mapFunction
-            .getLocationPermission()
-            .then((permissionGranted) => {
-                if (permissionGranted) {
-                    mapFunction
-                        .getCurrentLngLat()
-                        .then((lnglat) => {
-                            setPosition([lnglat.lat, lnglat.lng]);
-                        })
-                        .catch((error) => {
-                            console.error(
-                                "Error getting current location:",
-                                error
-                            );
-                        });
-                }
-            })
-            .catch((error) => {
-                console.error("Error getting location permission:", error);
-            });
-    }, []);
+    let roleContent;
 
     switch (user.roles.name) {
         case "admin":
