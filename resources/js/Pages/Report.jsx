@@ -1,12 +1,12 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 
-import { router, useForm, usePage } from "@inertiajs/react";
+import {router, useForm, usePage} from "@inertiajs/react";
 import Popup from "reactjs-popup";
 import "leaflet/dist/leaflet.css";
 import MapFunction from "@/functions/MapFunction";
 
-export default function Report({ auth }) {
+export default function Report({auth}) {
     const role = auth.user.roles.name;
     const status = [
         "pending",
@@ -15,11 +15,11 @@ export default function Report({ auth }) {
         "completed",
         "onprogress",
     ];
-    const { flash, errors, reports } = usePage().props;
-    const [selectedStatus, setSelectedStatus] = useState("Pilih Status");
+    const {flash, errors, reports} = usePage().props;
+    const [selectedStatus, setSelectedStatus] = useState("pending");
     const [lng, setLng] = useState(0.0);
     const [lat, setLat] = useState(0.0);
-    const { data, setData, reset, put } = useForm({
+    const {data, setData, reset, put} = useForm({
         rasa: "Tawar",
         suhu: "Biasa",
         kekentalan: "Encer",
@@ -42,7 +42,7 @@ export default function Report({ auth }) {
 
     const storeReport = (e) => {
         e.preventDefault();
-        const newData = { ...data, long: lng, lat: lat };
+        const newData = {...data, long: lng, lat: lat};
         router.post("/report", newData, {
             onSuccess: () => {
                 reset();
@@ -50,14 +50,11 @@ export default function Report({ auth }) {
         });
     };
 
-    const updateStatus = (status) => {
-        setSelectedStatus(status);
-    };
-    const updateReport = async (e, id) => {
-        e.preventDefault();
-        router.put(`/report/${id}`, data, {
+    const updateReport = async (id) => {
+        router.put(`/report/${id}`, {status: selectedStatus}, {
             onSuccess: () => {
                 reset();
+                setSelectedStatus("pending");
             },
         });
     };
@@ -74,7 +71,8 @@ export default function Report({ auth }) {
             }
         }).catch((error) => {
             console.error("Error getting location permission:", error);
-        });;
+        });
+        ;
     }, []);
 
     if (role === "user") {
@@ -82,7 +80,8 @@ export default function Report({ auth }) {
             <Popup
                 modal
                 trigger={
-                    <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ms-10 ease-linear transition-all duration-150">
+                    <button
+                        className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ms-10 ease-linear transition-all duration-150">
                         Create
                     </button>
                 }
@@ -276,33 +275,28 @@ export default function Report({ auth }) {
     }
     return (
         <AdminLayout>
-            <div className="rounded-t mb-0 px-4 py-3 border-0 ">
+            <div className="rounded-t py-3 ">
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                         <h3 className="font-semibold text-base text-gray-900">
                             Daftar Laporan
                         </h3>
                         {flash.message && (
-                            <div
-                                className="flex items-center p-4 mb-4 text-sm text-midnight rounded-lg  dark:text-green-500"
-                                role="alert"
-                            >
+                            <div role="alert" className="alert alert-success">
                                 <svg
-                                    className="flex-shrink-0 inline w-4 h-4 me-3"
-                                    aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
+                                    className="stroke-current shrink-0 h-6 w-6"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
                                 >
-                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                                    />
                                 </svg>
-                                <span className="sr-only">Info</span>
-                                <div>
-                                    <span className="font-medium">
-                                        Success alert!
-                                    </span>{" "}
-                                    {flash.message}
-                                </div>
+                                <span>{flash.message}</span>
                             </div>
                         )}
                     </div>
@@ -312,122 +306,97 @@ export default function Report({ auth }) {
                     </div>
                 </div>
             </div>
-            <div className="overflow-x-auto px-3">
+            <div className="overflow-x-auto">
                 <table className="table">
-                    <thead className="bg-gray-950 rounded-md text-white text-center">
-                        <tr>
-                            <th className=" ">Rasa</th>
-                            <th className=" ">Suhu</th>
-                            <th className=" ">Kekentalan</th>
-                            <th className=" ">Warna</th>
-                            <th className=" ">Bau</th>
-                            <th className=" ">Keasaman</th>
-                            <th className=" ">Detail Air</th>
-                            <th className=" ">Status</th>
-
-                            <th className=" " />
-                        </tr>
+                    {/* head */}
+                    <thead className='bg-primary text-white'>
+                    <tr>
+                        <th className="">No</th>
+                        <th className="">Rasa</th>
+                        <th className="">Suhu</th>
+                        <th className="">Kekentalan</th>
+                        <th className="">Warna</th>
+                        <th className="">Bau</th>
+                        <th className="">Keasaman</th>
+                        <th className="">Detail Air</th>
+                        <th className="">Status</th>
+                        {role === "admin" && (
+                            <th className="">Edit</th>
+                        )}
+                        <th className="">Detail</th>
+                    </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-                        {reports.map((report, i) => {
-                            return (
-                                <tr
-                                    className="bg-gray-50 text-gray-800"
-                                    key={i}
-                                >
-                                    <td className="">{report.rasa}</td>
-                                    <td className="">{report.suhu}</td>
-                                    <td className="">{report.kekentalan}</td>
-                                    <td className="">{report.warna}</td>
-                                    <td className="">{report.bau}</td>
-                                    <td className="">{report.keasaman}</td>
-                                    <td className="">{report.detail}</td>
+                    <tbody>
+                    {reports.map((report, i) => {
+                        return (
+                            <tr
+                                key={i}
+                            >
+                                <td className="">{i}</td>
+                                <td className="">{report.rasa}</td>
+                                <td className="">{report.suhu}</td>
+                                <td className="">{report.kekentalan}</td>
+                                <td className="">{report.warna}</td>
+                                <td className="">{report.bau}</td>
+                                <td className="">{report.keasaman}</td>
+                                <td className="">{report.detail}</td>
 
-                                    <td className="badge  badge-outline my-16">
-                                        {report.status}
-                                    </td>
+                                <td className="badge  badge-outline my-16">
+                                    {report.status}
+                                </td>
 
+                                {role === "admin" && (
                                     <td className="px-6 py-4">
-                                        <div className="flex justify-end gap-4">
-                                            {role === "admin" && (
-                                                <Popup
-                                                    modal
-                                                    trigger={
-                                                        <button className="bg-amber-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                                                            Edit
-                                                        </button>
-                                                    }
-                                                >
-                                                    <form
-                                                        className="p-4 md:p-5 bg-slate-400 "
-                                                        onSubmit={(e) =>
-                                                            updateReport(
-                                                                e,
-                                                                report.id
-                                                            )
-                                                        }
-                                                    >
-                                                        <select
-                                                            onChange={(e) => {
-                                                                updateStatus(
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                                setData(
-                                                                    "status",
-                                                                    e.target
-                                                                        .value
-                                                                );
-                                                            }}
-                                                            className="select w-full max-w-xs"
-                                                        >
-                                                            <option>
-                                                                {selectedStatus}
-                                                            </option>
-                                                            {status &&
-                                                                status.map(
-                                                                    (
-                                                                        status,
-                                                                        i
-                                                                    ) => {
-                                                                        return (
-                                                                            <option
-                                                                                key={
-                                                                                    i
-                                                                                }
-                                                                            >
-                                                                                {
-                                                                                    status
-                                                                                }
-                                                                            </option>
-                                                                        );
-                                                                    }
-                                                                )}
-                                                        </select>
-                                                        <button
-                                                            className="btn w-full"
-                                                            type={"submit"}
-                                                        >
-                                                            Button
-                                                        </button>
-                                                    </form>
-                                                </Popup>
-                                            )}
-                                        </div>
-                                        <button
-                                            onClick={() =>
-                                                router.get(
-                                                    "/report/" + report.id
-                                                )
-                                            }
-                                            className="btn btn-secondary"
-                                        >
-                                            Lihat Detail
+                                        <button className="btn btn-warning"
+                                                onClick={() => {
+                                                    document.getElementById('update_modal_' + report.id).showModal()
+                                                }}>Edit
+                                            Status
                                         </button>
+                                        <dialog id={'update_modal_' + report.id} className="modal">
+                                            <div className="modal-box">
+                                                <form method="dialog">
+                                                    {/* if there is a button in form, it will close the modal */}
+                                                    <button
+                                                        className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕
+                                                    </button>
+                                                </form>
+                                                <h3 className="font-bold text-lg">Ubah Status Laporan</h3>
+                                                <div className='w-full flex flex-wrap'>
+                                                    <select className="select select-bordered w-full mb-3"
+                                                            onChange={(e) => {
+                                                                setSelectedStatus(e.target.value)
+                                                            }} value={selectedStatus}>
+                                                        {status && status.map((status, i) => (
+                                                            <option key={i}>{status}</option>
+                                                        ))}
+                                                    </select>
+                                                    <button className='btn btn-warning w-full'
+                                                            onClick={() => {
+                                                                document.getElementById('update_modal_' + report.id).close();
+                                                                updateReport(report.id)
+                                                            }}>Update
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </dialog>
                                     </td>
-                                </tr>
-                            );
-                        })}
+                                )}
+                                <td>
+                                    <button
+                                        onClick={() =>
+                                            router.get(
+                                                "/report/" + report.id
+                                            )
+                                        }
+                                        className="btn btn-secondary"
+                                    >
+                                        Lihat Detail
+                                    </button>
+                                </td>
+                            </tr>
+                        );
+                    })}
                     </tbody>
                 </table>
             </div>
