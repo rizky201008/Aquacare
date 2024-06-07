@@ -21,6 +21,20 @@ export default {
         },
     },
 
-    plugins: [forms, Flowbite, daisyui],
+    plugins: [forms, Flowbite, daisyui, function ({ addUtilities }) {
+        const newUtilities = {
+            '.truncate-lines': {
+                display: '-webkit-box',
+                '-webkit-box-orient': 'vertical',
+                '-webkit-line-clamp': '3', /* Adjust the number of lines */
+                overflow: 'hidden',
+                'text-overflow': 'ellipsis',
+                'max-height': '4.5em', /* Adjust based on the number of lines and line-height */
+                'line-height': '1.5em', /* Adjust the line-height to match the font size and design */
+            },
+        };
+
+        addUtilities(newUtilities, ['responsive', 'hover']);
+    },],
     darkMode: 'false',
 };
