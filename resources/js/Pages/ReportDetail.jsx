@@ -1,4 +1,4 @@
-import {router, useForm, usePage} from "@inertiajs/react";
+import {router, useForm, usePage, Head} from "@inertiajs/react";
 import AdminLayout from "@/Layouts/AdminLayout.jsx";
 
 export default function ReportDetail({auth}) {
@@ -33,8 +33,13 @@ export default function ReportDetail({auth}) {
         return newDate;
     }
 
+    const title = `Laporan ${report.detail}`;
+
     return (
         <AdminLayout>
+            <Head>
+                <title>{title}</title>
+            </Head>
             <div className="card w-full bg-white  mb-3">
                 <div className="card-body">
                     <h2 className="card-title">Laporan #{report.id}</h2>

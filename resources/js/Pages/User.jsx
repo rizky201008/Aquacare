@@ -2,13 +2,16 @@ import AdminLayout from "@/Layouts/AdminLayout";
 
 import React from "react";
 
-import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 
 export default function User() {
     const { data, users } = usePage().props;
 
     return (
         <AdminLayout>
+            <Head>
+                <title>Daftar Pengguna</title>
+            </Head>
             <div className="text-center text-gray-900 text-2xl font-bold py-4 mt-8">
                 Daftar Pengguna
             </div>
@@ -50,7 +53,7 @@ export default function User() {
                                     >
                                         {user.email}
                                     </th>
-                                    
+
                                 </tr>
                             );
                         })}

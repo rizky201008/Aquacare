@@ -1,7 +1,7 @@
 import AdminLayout from "@/Layouts/AdminLayout";
 import React, {useEffect, useState} from "react";
 
-import {router, useForm, usePage} from "@inertiajs/react";
+import {Head, router, useForm, usePage} from "@inertiajs/react";
 import Popup from "reactjs-popup";
 import "leaflet/dist/leaflet.css";
 import MapFunction from "@/functions/MapFunction";
@@ -275,6 +275,9 @@ export default function Report({auth}) {
     }
     return (
         <AdminLayout>
+            <Head>
+                <title>Daftar Laporan</title>
+            </Head>
             <div className="rounded-t py-3 ">
                 <div className="flex flex-wrap items-center">
                     <div className="relative w-full px-4 max-w-full flex-grow flex-1">
