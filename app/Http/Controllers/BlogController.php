@@ -107,4 +107,9 @@ class BlogController extends Controller
         $blog->delete();
         return redirect()->back()->with('message', 'Artikel berhasil dihapus');
     }
+
+    public function show($slug){
+        $blog = Blog::where('slug', $slug)->first();
+        return Inertia::render('BlogDetail', ['blog' => $blog]);
+    }
 }
