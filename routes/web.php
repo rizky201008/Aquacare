@@ -27,6 +27,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('update', [BlogController::class, 'updateBlogPost'])->name('blogs.update-post');
         Route::post('create', [BlogController::class, 'createBlogPost'])->name('blogs.create-post');
         Route::delete('delete/{id}', [BlogController::class, 'deleteBlog'])->name('blogs.delete');
+        Route::get('/{slug}', [BlogController::class, 'show'])->name('blogs.show');
     });
     Route::put('report/{id}', [ReportController::class, 'updateReportPut'])->name('report.put');
 });
