@@ -24,10 +24,10 @@ const AdminLayout = ({ children, header }) => {
                             <li>
                                 <a
                                     href="/dashboard"
-                                    className="flex items-center p-2 text-bermuda rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-bermuda rounded-lg :text-white hover:bg-gray-100 :hover:bg-gray-700 group"
                                 >
                                     <svg
-                                        className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                        className="w-5 h-5 text-gray-500 transition duration-75 :text-gray-400 group-hover:text-gray-900 :group-hover:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor"
@@ -44,10 +44,10 @@ const AdminLayout = ({ children, header }) => {
                             <li>
                                 <a
                                     href="/report"
-                                    className="flex items-center p-2 text-bermuda rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-bermuda rounded-lg :text-white hover:bg-gray-100 :hover:bg-gray-700 group"
                                 >
                                     <svg
-                                        className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                        className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 :text-gray-400 group-hover:text-gray-900 :group-hover:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor"
@@ -66,10 +66,10 @@ const AdminLayout = ({ children, header }) => {
                                     href={route("logout")}
                                     method="post"
                                     as="button"
-                                    className="flex items-center p-2 text-bermuda rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-bermuda rounded-lg :text-white hover:bg-gray-100 :hover:bg-gray-700 group"
                                 >
                                     <svg
-                                        className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                        className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 :text-gray-400 group-hover:text-gray-900 :group-hover:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
@@ -108,10 +108,10 @@ const AdminLayout = ({ children, header }) => {
                             <li>
                                 <a
                                     href="/dashboard"
-                                    className="flex items-center p-2 text-bermuda rounded-lg dark:text-white hover:bg-gray-100   group"
+                                    className="flex items-center p-2 text-bermuda rounded-lg :text-white hover:bg-gray-100   group"
                                 >
                                     <svg
-                                        className="w-5 h-5 text-slate-100 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                        className="w-5 h-5 text-slate-100 transition duration-75 :text-gray-400 group-hover:text-gray-900 :group-hover:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor"
@@ -128,10 +128,10 @@ const AdminLayout = ({ children, header }) => {
                             <li>
                                 <a
                                     href="/report"
-                                    className="flex items-center p-2 text-bermuda rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-bermuda rounded-lg :text-white hover:bg-gray-100 :hover:bg-gray-700 group"
                                 >
                                     <svg
-                                        className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                        className="w-5 h-5 text-slate-100 transition duration-75 :text-gray-400 group-hover:text-gray-900 :group-hover:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor"
@@ -147,10 +147,10 @@ const AdminLayout = ({ children, header }) => {
                             <li>
                                 <a
                                     href="/blogs"
-                                    className="flex items-center p-2 text-bermuda rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-bermuda rounded-lg :text-white hover:bg-gray-100 :hover:bg-gray-700 group"
                                 >
                                     <svg
-                                        className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                        className="w-5 h-5 text-slate-100 transition duration-75 :text-gray-400 group-hover:text-gray-900 :group-hover:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor"
@@ -167,10 +167,10 @@ const AdminLayout = ({ children, header }) => {
                             <li>
                                 <a
                                     href="/user"
-                                    className="flex items-center p-2 text-bermuda rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-bermuda rounded-lg :text-white hover:bg-gray-100 :hover:bg-gray-700 group"
                                 >
                                     <svg
-                                        className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                        className="w-5 h-5 text-slate-100 transition duration-75 :text-gray-400 group-hover:text-gray-900 :group-hover:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor"
@@ -189,10 +189,10 @@ const AdminLayout = ({ children, header }) => {
                                     href={route("logout")}
                                     method="post"
                                     as="button"
-                                    className="flex items-center p-2 text-bermuda rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-bermuda rounded-lg :text-white hover:bg-gray-100 :hover:bg-gray-700 group"
                                 >
                                     <svg
-                                        className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                        className="w-5 h-5 text-slate-100 transition duration-75 :text-gray-400 group-hover:text-gray-900 :group-hover:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
@@ -232,10 +232,10 @@ const AdminLayout = ({ children, header }) => {
                             <li>
                                 <a
                                     href="/dashboard"
-                                    className="flex items-center p-2 text-bermuda rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-bermuda rounded-lg :text-white hover:bg-gray-100 :hover:bg-gray-700 group"
                                 >
                                     <svg
-                                        className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                        className="w-5 h-5 text-slate-100 transition duration-75 :text-gray-400 group-hover:text-gray-900 :group-hover:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor"
@@ -253,10 +253,10 @@ const AdminLayout = ({ children, header }) => {
                             <li>
                                 <a
                                     href="/report"
-                                    className="flex items-center p-2 text-bermuda rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-bermuda rounded-lg :text-white hover:bg-gray-100 :hover:bg-gray-700 group"
                                 >
                                     <svg
-                                        className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                        className="w-5 h-5 text-slate-100 transition duration-75 :text-gray-400 group-hover:text-gray-900 :group-hover:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor"
@@ -275,10 +275,10 @@ const AdminLayout = ({ children, header }) => {
                                     href={route("logout")}
                                     method="post"
                                     as="button"
-                                    className="flex items-center p-2 text-bermuda rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-bermuda rounded-lg :text-white hover:bg-gray-100 :hover:bg-gray-700 group"
                                 >
                                     <svg
-                                        className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                        className="w-5 h-5 text-slate-100 transition duration-75 :text-gray-400 group-hover:text-gray-900 :group-hover:text-white"
                                         aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
@@ -313,7 +313,7 @@ const AdminLayout = ({ children, header }) => {
     return (
         <>
             <div className="min-h-screen bg-gray-300">
-                <nav className=" border-gray-200  dark:border-gray-700">
+                <nav className=" border-gray-200  :border-gray-700">
                     <div className="px-3 py-3 lg:px-5 lg:pl-3">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center justify-start rtl:justify-end">
