@@ -1,4 +1,4 @@
-import {usePage} from "@inertiajs/react";
+import {Link, usePage} from "@inertiajs/react";
 
 const BlogDetail = () => {
     const {blog} = usePage().props;
@@ -17,6 +17,7 @@ const BlogDetail = () => {
                 </div>
                 <h1 className='text-5xl font-bold w-full mb-3'>{blog.title}</h1>
                 <p className='text-justify'>{blog.content}</p>
+                <Link href="/blogs" className="py-4 btn bg-teal-600 text-white hover:text-black">Kembali</Link>
             </div>
         </>
 )
