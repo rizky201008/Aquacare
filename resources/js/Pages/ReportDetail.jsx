@@ -3,15 +3,14 @@ import AdminLayout from "@/Layouts/AdminLayout.jsx";
 
 export default function ReportDetail({ auth }) {
     const role = auth.user.roles.name;
-    const { report } = usePage().props;
-    const { flash, errors, feedbacks } = usePage().props;
-    const { data, setData, reset, put } = useForm({
-        report_id: null,
+    const {report} = usePage().props;
+    const {flash, errors, feedbacks} = usePage().props;
+    const {data, setData, reset, put} = useForm({
+        report_id: report.id,
         message: "",
     });
 
     const storeFeedback = (e) => {
-        setData("report_id", report.id);
         e.preventDefault();
         router.post(route("feedback.post"), data, {
             onSuccess: () => {
@@ -154,7 +153,7 @@ export default function ReportDetail({ auth }) {
 
                     {report.feedback.map((feedback, index) => (
                         <div
-                            className="card border-2 w-full bg-white text-primary-content"
+                            className="card border-2 w-full bg-white"
                             key={index}
                         >
                             <div className="card-body">

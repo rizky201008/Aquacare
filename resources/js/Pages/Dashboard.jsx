@@ -131,7 +131,7 @@ export default function Dashboard({ auth }) {
 
         case "petugas":
             roleContent = (
-                <div className="h-min-screen bg-gray-50 flex items-center">
+                <div >
                     <section
                         className="bg-cover bg-center py-32 w-full"
                         style={{
@@ -152,6 +152,34 @@ export default function Dashboard({ auth }) {
                                         vitae.
                                     </p>
                                 </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section className="py-1">
+                        <div className="w-full mb-12 xl:mb-0 mx-auto mt-24">
+                            <div
+                                className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
+                                <MapContainer
+                                    center={[-6.17525, 106.82705]}
+                                    zoom={4}
+                                    scrollWheelZoom={true}
+                                    style={{height: "500px", width: "100%"}}
+                                >
+                                    <TileLayer
+                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    />
+                                    {reports.map((report) => (
+                                        <MarkerKu
+                                            key={report.id}
+                                            position={{
+                                                lat: report.lat,
+                                                lng: report.long,
+                                            }}
+                                            popup={`#${report.id} by ${report.user.name}`}
+                                        />
+                                    ))}
+                                </MapContainer>
                             </div>
                         </div>
                     </section>
@@ -191,7 +219,7 @@ export default function Dashboard({ auth }) {
         default:
             roleContent = (
                 <div>
-                    <h1>Dashboard</h1>
+                <h1>Dashboard</h1>
                 </div>
             );
             break;

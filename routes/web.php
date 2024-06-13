@@ -8,9 +8,8 @@ use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/', [ReportController::class, 'blogList']);
 Route::middleware(['auth', 'role:admin,petugas,user'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('user', [DashboardController::class, 'userlist'])->name('user.list');
     Route::get('report', [ReportController::class, 'reportList'])->name('report');
     Route::post('report', [ReportController::class, 'reportPost'])->name('report.post');
@@ -27,10 +26,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('update', [BlogController::class, 'updateBlogPost'])->name('blogs.update-post');
         Route::post('create', [BlogController::class, 'createBlogPost'])->name('blogs.create-post');
         Route::delete('delete/{id}', [BlogController::class, 'deleteBlog'])->name('blogs.delete');
-        Route::get('/{slug}', [BlogController::class, 'show'])->name('blogs.show');
     });
     Route::put('report/{id}', [ReportController::class, 'updateReportPut'])->name('report.put');
 });
+
+Route::get('blogs/{slug}', [BlogController::class, 'show'])->name('blogs.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
