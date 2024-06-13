@@ -1,12 +1,12 @@
 import AdminLayout from "@/Layouts/AdminLayout";
-import React, {useEffect, useState} from "react";
-
-import {Head, router, useForm, usePage} from "@inertiajs/react";
+import React, { useEffect, useState } from "react";
+import { CiEdit } from "react-icons/ci";
+import { Head, router, useForm, usePage } from "@inertiajs/react";
 import Popup from "reactjs-popup";
 import "leaflet/dist/leaflet.css";
 import MapFunction from "@/functions/MapFunction";
-
-export default function Report({auth}) {
+import { FiAlertCircle } from "react-icons/fi";
+export default function Report({ auth }) {
     const role = auth.user.roles.name;
     const status = [
         "pending",
@@ -15,11 +15,11 @@ export default function Report({auth}) {
         "completed",
         "onprogress",
     ];
-    const {flash, errors, reports} = usePage().props;
+    const { flash, errors, reports } = usePage().props;
     const [selectedStatus, setSelectedStatus] = useState("pending");
     const [lng, setLng] = useState(0.0);
     const [lat, setLat] = useState(0.0);
-    const {data, setData, reset, put} = useForm({
+    const { data, setData, reset, put } = useForm({
         rasa: "Tawar",
         suhu: "Biasa",
         kekentalan: "Encer",
@@ -53,12 +53,16 @@ export default function Report({auth}) {
     };
 
     const updateReport = async (id) => {
-        router.put(`/report/${id}`, {status: selectedStatus}, {
-            onSuccess: () => {
-                reset();
-                setSelectedStatus("pending");
-            },
-        });
+        router.put(
+            `/report/${id}`,
+            { status: selectedStatus },
+            {
+                onSuccess: () => {
+                    reset();
+                    setSelectedStatus("pending");
+                },
+            }
+        );
     };
 
     useEffect(() => {
@@ -309,21 +313,26 @@ export default function Report({auth}) {
                             Daftar Laporan
                         </h3>
                         {flash.message && (
-                            <div role="alert" className="alert alert-success">
+                            <div
+                                className="flex items-center p-2 text-sm text-midnight rounded-lg  text-green-500"
+                                role="alert"
+                            >
                                 <svg
+                                    className="flex-shrink-0 inline w-4 h-4 me-2"
+                                    aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    className="stroke-current shrink-0 h-6 w-6"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
                                 >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    />
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                                 </svg>
-                                <span>{flash.message}</span>
+                                <span className="sr-only">Info</span>
+                                <div>
+                                    <span className="font-medium">
+                                        Success alert!
+                                    </span>{" "}
+                                    {flash.message}
+                                </div>
                             </div>
                         )}
                     </div>
@@ -354,27 +363,26 @@ export default function Report({auth}) {
                     </tr>
                     </thead>
                     <tbody>
-                    {reports.map((report, i) => {
-                        return (
-                            <tr
-                                key={i}
-                            >
-                                <td className="">{i}</td>
-                                <td className="">{report.rasa}</td>
-                                <td className="">{report.suhu}</td>
-                                <td className="">{report.kekentalan}</td>
-                                <td className="">{report.warna}</td>
-                                <td className="">{report.bau}</td>
-                                <td className="">{report.keasaman}</td>
-                                <td className="">{report.detail}</td>
+                        {reports.map((report, i) => {
+                            return (
+                                <tr key={i}>
+                                    <td className="">{i}</td>
+                                    <td className="">{report.rasa}</td>
+                                    <td className="">{report.suhu}</td>
+                                    <td className="">{report.kekentalan}</td>
+                                    <td className="">{report.warna}</td>
+                                    <td className="">{report.bau}</td>
+                                    <td className="">{report.keasaman}</td>
+                                    <td className="">{report.detail}</td>
 
-                                <td className="badge  badge-outline my-16">
-                                    {report.status}
-                                </td>
+                                    <td className="badge  badge-outline my-6">
+                                        {report.status}
+                                    </td>
 
-                                {role === "admin" && (
-                                    <td className="px-6 py-4">
-                                        <button className="btn btn-warning"
+                                    {role === "admin" && (
+                                        <td className="px-6 py-4">
+                                            <button
+                                                className="btn bg-yellow-500"
                                                 onClick={() => {
                                                     document.getElementById('update_modal_' + report.id).showModal()
                                                 }}>Edit
@@ -392,38 +400,69 @@ export default function Report({auth}) {
                                                 <div className='w-full flex flex-wrap'>
                                                     <select className="select select-bordered text-black w-full mb-3"
                                                             onChange={(e) => {
-                                                                setSelectedStatus(e.target.value)
-                                                            }} value={selectedStatus}>
-                                                        {status && status.map((status, i) => (
-                                                            <option key={i}>{status}</option>
-                                                        ))}
-                                                    </select>
-                                                    <button className='btn btn-warning w-full'
+                                                                setSelectedStatus(
+                                                                    e.target
+                                                                        .value
+                                                                );
+                                                            }}
+                                                            value={
+                                                                selectedStatus
+                                                            }
+                                                        >
+                                                            {status &&
+                                                                status.map(
+                                                                    (
+                                                                        status,
+                                                                        i
+                                                                    ) => (
+                                                                        <option
+                                                                            key={
+                                                                                i
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                status
+                                                                            }
+                                                                        </option>
+                                                                    )
+                                                                )}
+                                                        </select>
+                                                        <button
+                                                            className="btn btn-warning w-full"
                                                             onClick={() => {
-                                                                document.getElementById('update_modal_' + report.id).close();
-                                                                updateReport(report.id)
-                                                            }}>Update
-                                                    </button>
+                                                                document
+                                                                    .getElementById(
+                                                                        "update_modal_" +
+                                                                            report.id
+                                                                    )
+                                                                    .close();
+                                                                updateReport(
+                                                                    report.id
+                                                                );
+                                                            }}
+                                                        >
+                                                            Update
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </dialog>
+                                            </dialog>
+                                        </td>
+                                    )}
+                                    <td>
+                                        <button
+                                            onClick={() =>
+                                                router.get(
+                                                    "/report/" + report.id
+                                                )
+                                            }
+                                            className="btn bg-blue-300"
+                                        >
+                                            <FiAlertCircle size={20} />
+                                        </button>
                                     </td>
-                                )}
-                                <td>
-                                    <button
-                                        onClick={() =>
-                                            router.get(
-                                                "/report/" + report.id
-                                            )
-                                        }
-                                        className="btn btn-secondary"
-                                    >
-                                        Lihat Detail
-                                    </button>
-                                </td>
-                            </tr>
-                        );
-                    })}
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

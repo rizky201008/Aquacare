@@ -1,7 +1,7 @@
-import {router, useForm, usePage, Head} from "@inertiajs/react";
+import { router, useForm, usePage, Head } from "@inertiajs/react";
 import AdminLayout from "@/Layouts/AdminLayout.jsx";
 
-export default function ReportDetail({auth}) {
+export default function ReportDetail({ auth }) {
     const role = auth.user.roles.name;
     const {report} = usePage().props;
     const {flash, errors, feedbacks} = usePage().props;
@@ -62,36 +62,36 @@ export default function ReportDetail({auth}) {
                     <table className="table w-1/2 bg-warning">
                         {/* head */}
                         <tbody className="text-black">
-                        {/* row 1 */}
-                        <tr>
-                            <td className='font-bold'>Rasa</td>
-                            <td>: {report.rasa}</td>
-                        </tr>
-                        {/* row 2 */}
-                        <tr>
-                            <td className='font-bold'>Suhu</td>
-                            <td>: {report.suhu}</td>
-                        </tr>
-                        {/* row 3 */}
-                        <tr>
-                            <td className='font-bold'>Kekentalan</td>
-                            <td>: {report.kekentalan}</td>
-                        </tr>
-                        {/* row 4 */}
-                        <tr>
-                            <td className='font-bold'>Warna</td>
-                            <td>: {report.warna}</td>
-                        </tr>
-                        {/* row 5 */}
-                        <tr>
-                            <td className='font-bold'>Bau</td>
-                            <td>: {report.bau}</td>
-                        </tr>
-                        {/* row 6 */}
-                        <tr>
-                            <td className='font-bold'>Keasaman</td>
-                            <td>: {report.keasaman}</td>
-                        </tr>
+                            {/* row 1 */}
+                            <tr>
+                                <td className="font-bold">Rasa</td>
+                                <td>: {report.rasa}</td>
+                            </tr>
+                            {/* row 2 */}
+                            <tr>
+                                <td className="font-bold">Suhu</td>
+                                <td>: {report.suhu}</td>
+                            </tr>
+                            {/* row 3 */}
+                            <tr>
+                                <td className="font-bold">Kekentalan</td>
+                                <td>: {report.kekentalan}</td>
+                            </tr>
+                            {/* row 4 */}
+                            <tr>
+                                <td className="font-bold">Warna</td>
+                                <td>: {report.warna}</td>
+                            </tr>
+                            {/* row 5 */}
+                            <tr>
+                                <td className="font-bold">Bau</td>
+                                <td>: {report.bau}</td>
+                            </tr>
+                            {/* row 6 */}
+                            <tr>
+                                <td className="font-bold">Keasaman</td>
+                                <td>: {report.keasaman}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -100,6 +100,29 @@ export default function ReportDetail({auth}) {
             <div className="card w-full bg-white">
                 <div className="card-body">
                     <h2 className="card-title">Feedback</h2>
+                    {flash.message && (
+                        <div
+                            className="flex items-center p-4 mb-4 text-sm text-midnight rounded-lg  text-green-500"
+                            role="alert"
+                        >
+                            <svg
+                                className="flex-shrink-0 inline w-4 h-4 me-3"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                            >
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span className="sr-only">Info</span>
+                            <div>
+                                <span className="font-medium">
+                                    Success alert!
+                                </span>{" "}
+                                {flash.message}
+                            </div>
+                        </div>
+                    )}
                     {role === "petugas" && (
                         <form
                             onSubmit={storeFeedback}
@@ -121,7 +144,7 @@ export default function ReportDetail({auth}) {
 
                             <button
                                 type={"submit"}
-                                className="btn btn-primary w-full"
+                                className="btn bg-teal-600 w-full"
                             >
                                 Kirim
                             </button>
@@ -135,10 +158,10 @@ export default function ReportDetail({auth}) {
                         >
                             <div className="card-body">
                                 <h2 className="card-title badge badge-neutral py-3 px-6">
-                                    Oleh : {feedback.user.name}
+                                    Petugas : {feedback.user.name}
                                 </h2>
-                                <p>{feedback.message}</p>
-                                <p className="font-serif">
+                                <p className="text-gray-900">{feedback.message}</p>
+                                <p className="font-serif text-gray-900">
                                     Tanggal :{" "}
                                     {convertUTCDateToLocalDate(
                                         new Date(feedback.created_at)
@@ -149,29 +172,6 @@ export default function ReportDetail({auth}) {
                     ))}
                 </div>
             </div>
-
-            {flash.message && (
-                <div
-                    className="flex items-center p-4 mb-4 text-sm text-midnight rounded-lg  dark:text-green-500"
-                    role="alert"
-                >
-                    <svg
-                        className="flex-shrink-0 inline w-4 h-4 me-3"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                    >
-                        <path
-                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-                    </svg>
-                    <span className="sr-only">Info</span>
-                    <div>
-                        <span className="font-medium">Success alert!</span>{" "}
-                        {flash.message}
-                    </div>
-                </div>
-            )}
         </AdminLayout>
     );
 }
