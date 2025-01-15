@@ -31,6 +31,6 @@
         "react-icons": "^5.2.1",
         "react-leaflet": "^4.2.1",
         "reactjs-popup": "^2.0.6",
-        "startbootstrap-sb-admin-2": "^4.1.4"
+        "startbootstrap-sb-admin-2": "^3.3.7"
     }
 }
